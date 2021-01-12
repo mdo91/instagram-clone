@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		54069AAE25AC5BF2008A57C6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 54069AAD25AC5BF2008A57C6 /* GoogleService-Info.plist */; };
+		54069AE125AD6657008A57C6 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54069AE025AD6657008A57C6 /* MainTabBarViewController.swift */; };
+		54069AE425AD684D008A57C6 /* FeedCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54069AE325AD684D008A57C6 /* FeedCollectionViewController.swift */; };
+		54069AE725AD6886008A57C6 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54069AE625AD6886008A57C6 /* SearchViewController.swift */; };
+		54069AEA25AD68A6008A57C6 /* UploadPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54069AE925AD68A6008A57C6 /* UploadPostViewController.swift */; };
+		54069AED25AD68C6008A57C6 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54069AEC25AD68C6008A57C6 /* NotificationViewController.swift */; };
+		54069AF025AD68E6008A57C6 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54069AEF25AD68E6008A57C6 /* UserProfileViewController.swift */; };
 		54407B8125AAFE0600F2A637 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54407B8025AAFE0600F2A637 /* SignUpVC.swift */; };
 		545367E325AAC09D00A65BAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545367E225AAC09D00A65BAD /* AppDelegate.swift */; };
 		545367E525AAC09D00A65BAD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545367E425AAC09D00A65BAD /* SceneDelegate.swift */; };
@@ -22,6 +28,12 @@
 /* Begin PBXFileReference section */
 		4FBFA9F1FEE9388B1CE7279E /* Pods-instegramClone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-instegramClone.debug.xcconfig"; path = "Target Support Files/Pods-instegramClone/Pods-instegramClone.debug.xcconfig"; sourceTree = "<group>"; };
 		54069AAD25AC5BF2008A57C6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		54069AE025AD6657008A57C6 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
+		54069AE325AD684D008A57C6 /* FeedCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCollectionViewController.swift; sourceTree = "<group>"; };
+		54069AE625AD6886008A57C6 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		54069AE925AD68A6008A57C6 /* UploadPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPostViewController.swift; sourceTree = "<group>"; };
+		54069AEC25AD68C6008A57C6 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		54069AEF25AD68E6008A57C6 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		54407B8025AAFE0600F2A637 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		545367DF25AAC09D00A65BAD /* instegramClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = instegramClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		545367E225AAC09D00A65BAD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -111,6 +123,12 @@
 			children = (
 				545367FB25AAC16500A65BAD /* LoginVC.swift */,
 				54407B8025AAFE0600F2A637 /* SignUpVC.swift */,
+				54069AE025AD6657008A57C6 /* MainTabBarViewController.swift */,
+				54069AE325AD684D008A57C6 /* FeedCollectionViewController.swift */,
+				54069AE625AD6886008A57C6 /* SearchViewController.swift */,
+				54069AE925AD68A6008A57C6 /* UploadPostViewController.swift */,
+				54069AEC25AD68C6008A57C6 /* NotificationViewController.swift */,
+				54069AEF25AD68E6008A57C6 /* UserProfileViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -255,10 +273,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54069AED25AD68C6008A57C6 /* NotificationViewController.swift in Sources */,
 				545367E325AAC09D00A65BAD /* AppDelegate.swift in Sources */,
 				545367E525AAC09D00A65BAD /* SceneDelegate.swift in Sources */,
+				54069AE725AD6886008A57C6 /* SearchViewController.swift in Sources */,
 				545367FC25AAC16500A65BAD /* LoginVC.swift in Sources */,
+				54069AE125AD6657008A57C6 /* MainTabBarViewController.swift in Sources */,
+				54069AE425AD684D008A57C6 /* FeedCollectionViewController.swift in Sources */,
+				54069AEA25AD68A6008A57C6 /* UploadPostViewController.swift in Sources */,
 				54407B8125AAFE0600F2A637 /* SignUpVC.swift in Sources */,
+				54069AF025AD68E6008A57C6 /* UserProfileViewController.swift in Sources */,
 				54889C3225AAC8110067FD7A /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
