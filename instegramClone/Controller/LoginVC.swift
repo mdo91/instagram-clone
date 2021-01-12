@@ -93,7 +93,9 @@ class LoginVC:UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("LoginVC.viewDidLoad")
+      //  print("\(self.view.window?.isKeyWindow)")
+        //self.navigationController?.viewControllers
+      //  print("LoginVC.viewDidLoad \( self.navigationController?.viewControllers.count)")
         navigationController?.navigationBar.isHidden  = true
         view.backgroundColor = .white
       //  self.view.addSubview(emailTextField)
@@ -155,9 +157,15 @@ class LoginVC:UIViewController{
                 print("error \(error.localizedDescription)")
                 
                 
+            }else{
+                print("success login...")
+                
+                let mainViewController = MainTabBarViewController()
+                self.navigationController?.pushViewController(mainViewController, animated: true)
+             //   self.present(mainViewController, animated: true, completion: nil)
             }
             
-            print("success login...")
+
         }
         
     }
