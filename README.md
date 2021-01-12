@@ -15,3 +15,8 @@ This repository contains an ios project that demonstrates Instagram-like app int
 | Firebase/Database     | SDK supports cloud hosted database(NoSQL) Data stored as JSON and sync in real time      |
 
 ---
+
+# app screens:
+
+. login
+. sign-up
