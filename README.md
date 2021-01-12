@@ -10,7 +10,7 @@ This repository contains an ios project that demonstrates Instagram-like app int
 
 | Library name  | Description   | 
 | ------------- |:-------------:| 
-|   Firebase/Auth     | provides built-in functionality for signup and login with email and password |
+|   Firebase/Auth     | provides built-in functionality with cloud integration for signup and login with email and password |
 | Firebase/Storage     | cloud storage SDK allows to store and serve user-generated content such as photos and videos     |
 | Firebase/Database     | SDK supports cloud hosted database(NoSQL) Data stored as JOSN and sync in real time      |
 
