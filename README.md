@@ -18,5 +18,5 @@ This repository contains an ios project that demonstrates Instagram-like app int
 
 # app screens:
 
-. login
-. sign-up
+* login
+* sign-up
