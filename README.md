@@ -6,7 +6,7 @@ instagram-like app integrated with firebase
 This repository contains an ios project that demonstrates Instagram-like app integrated with firebase using mvvm desgin pattern without using storyboards. 
 
 
-## CocoaPods libraries
+## Cocoa Pods libraries
 
 | Library name  | Description   | 
 | ------------- |:-------------:| 
