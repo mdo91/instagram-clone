@@ -53,3 +53,34 @@ extension UIView{
         
     }
 }
+var imageCache = [String: UIImage]()
+extension UIImageView{
+    
+    func loadImage(with urlString:String){
+        if let cachedImage = imageCache[urlString]{
+            self.image = cachedImage
+            return
+        }
+        
+        guard let url = URL(string: urlString) else {return}
+        
+        URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+            
+            if let error = error{
+                print("loadImage.error \(error.localizedDescription)")
+            }
+            
+            guard let data = data else{ return}
+            
+            let photoImage = UIImage(data: data)
+            imageCache[url.absoluteString] = photoImage
+            
+            DispatchQueue.main.async {
+                
+                self.image = photoImage
+            }
+            
+        }).resume()
+    }
+    
+}

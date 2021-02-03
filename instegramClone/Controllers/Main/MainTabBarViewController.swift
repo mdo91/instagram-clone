@@ -42,13 +42,13 @@ class MainTabBarViewController: UITabBarController {
     public func configureViewControllers(){
         
         // home
-        let feedVC = constructNavController(unselectedImage: UIImage(named: "home_unselected")!, selectedImage: UIImage(named: "home_selected")!, rootViewController: FeedCollectionViewController(collectionViewLayout: UICollectionViewLayout()))
+        let feedVC = constructNavController(unselectedImage: UIImage(named: "home_unselected")!, selectedImage: UIImage(named: "home_selected")!, rootViewController: FeedCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout()))
         
         
         
         //search
         
-        let searchVC = constructNavController(unselectedImage: UIImage(named: "search_unselected")!, selectedImage: UIImage(named: "search_selected")!, rootViewController: SearchViewController(collectionViewLayout: UICollectionViewLayout()))
+        let searchVC = constructNavController(unselectedImage: UIImage(named: "search_unselected")!, selectedImage: UIImage(named: "search_selected")!, rootViewController: SearchViewController())
         
         // post
        let uploadVC = constructNavController(unselectedImage: UIImage(named: "plus_unselected")!, selectedImage: UIImage(named: "plus_unselected")!, rootViewController: UploadPostViewController())
@@ -58,7 +58,7 @@ class MainTabBarViewController: UITabBarController {
         
         //profile
         
-        let profileVC = constructNavController(unselectedImage: UIImage(named: "profile_unselected")!, selectedImage: UIImage(named: "profile_unselected")!, rootViewController: UserProfileViewController(collectionViewLayout: UICollectionViewLayout()))
+        let profileVC = constructNavController(unselectedImage: UIImage(named: "profile_unselected")!, selectedImage: UIImage(named: "profile_unselected")!, rootViewController: UserProfileViewController(collectionViewLayout: UICollectionViewFlowLayout()))
         
         // adding to tab-bar
         
