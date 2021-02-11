@@ -80,6 +80,7 @@ public class User{
     
     public func unfollow(){
         //user ID
+        print("User.unfollow")
         
         guard let currentUser = Auth.auth().currentUser?.uid else { return }
         
@@ -88,7 +89,7 @@ public class User{
         self.isfollowed = false
         print("unfollow.uid \(uid)")
         print("currentUser.id \(currentUser)")
-        Database.database().reference().child("user-following").child(uid).child(currentUser).removeValue()
+        Database.database().reference().child("user-following").child(currentUser).child(uid).removeValue()
        
         Database.database().reference().child("user-followers").child(uid).child(currentUser).removeValue()
           

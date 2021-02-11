@@ -7,14 +7,14 @@
 
 import Foundation
 import UIKit
-
+import FirebaseAuth
 
 class FollowCell: UITableViewCell {
     
     //MARK: - Properties
     
-    let profileImageView:UIImageView = {
-       let imageView = UIImageView()
+    let profileImageView:CustomImageView = {
+       let imageView = CustomImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = .lightGray
         imageView.clipsToBounds = true
@@ -40,8 +40,33 @@ class FollowCell: UITableViewCell {
             self.profileImageView.loadImage(with: imageURL)
              self.textLabel?.text = user?.userName
              self.detailTextLabel?.text = user?.name
+            
+            if user?.uid == Auth.auth().currentUser?.uid{
+                followButton.isHidden = true
+            }
+            
+            user?.checkIfUserFollowed(completion: { (followed) in
+                // followed
+                if followed{
+                    self.followButton.setTitle("Following", for: .normal)
+                    self.followButton.backgroundColor = .white
+                    self.followButton.setTitleColor(.black, for: .normal)
+                    self.followButton.layer.borderWidth = 0.5
+                    self.followButton.layer.borderColor = UIColor.lightGray.cgColor
+                    
+                }else{
+                    
+                    self.followButton.setTitle("Follow", for: .normal)
+                    self.followButton.layer.borderWidth = 0
+                    self.followButton.setTitleColor(.white, for: .normal)
+                    self.followButton.backgroundColor = UIColor(red: 17/255, green: 154/255, blue: 237/255, alpha: 1)
+                    
+                }
+            })
         }
     }
+    
+    weak var delegate: FollowCellDelegate?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
@@ -88,6 +113,8 @@ class FollowCell: UITableViewCell {
     
     @objc func handleFollowButtonAction(){
         print("handleFollowButtonAction tapped")
+        delegate?.handleFollowTappedDelegate(for: self)
+        
     }
     
 }

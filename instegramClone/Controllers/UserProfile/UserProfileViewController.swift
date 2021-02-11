@@ -15,16 +15,17 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
 
     
     
-   // var headerReferenceSize = CGSize(width:200,height:200)
+   
     
     //MARK: - vars & outlets
     
     var user: User?{
         didSet{
-         
+           // print("user \(String(describing: user?.uid))")
         }
-        
     }
+    
+    var posts = [Post]()
     
     var searchUser = false
 
@@ -32,7 +33,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         super.viewDidLoad()
          print("UserProfileViewController.viewDidLoad")
 
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.register(UserPostCell.self, forCellWithReuseIdentifier: UserPostCell.reuseIdentifier)
         
         self.collectionView!.register(UserProfileHeader.self, forSupplementaryViewOfKind:  UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
         
@@ -41,13 +42,28 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         self.collectionView.backgroundColor = .white
         
         configureUserData()
+        
+        fetchPosts(completed: {
+           
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.collectionView.reloadData()
+            }
+        })
 
 
         // Do any additional setup after loading the view.
     }
     
     
-    // MARK: UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
+    }
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -57,21 +73,27 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 1
+        return self.posts.count
     }
     
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UserPostCell.reuseIdentifier, for: indexPath) as? UserPostCell else{
+            fatalError("could not init \(UserPostCell.self)")
+        }
     
         // Configure the cell
+        cell.photoImageView.image = nil
+        cell.post = self.posts[indexPath.item]
     
         return cell
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: 200, height: 200)
-//    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let width = ( view.frame.width - 2 ) / 3
+        return CGSize(width: width, height: width)
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.width, height: 200)
@@ -91,11 +113,80 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
 
     
     
-//     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-//        return CGSize(width: view.frame.width , height: 200)
-//    }
-
+    //MARK: - fetch user posts
     
+    private func fetchPosts(completed: @escaping ()-> Void ){
+        
+        var uid: String!
+        if let user = user{
+            uid = user.uid
+        }else{
+            guard let currentUid = Auth.auth().currentUser?.uid else { return }
+            uid = currentUid
+        }
+        
+       postsCount(for: uid) { (count) in
+       print("postsCount \(count)")
+        self.posts = [Post]()
+        print("posts \(self.posts.count)")
+       
+        USER_POSTS_REF.child(uid).observe(.childAdded) { (data) in
+            //
+           
+            let postId = data.key
+        
+
+            POSTS_REF.child(postId).observeSingleEvent(of: .value) { [weak self](data) in
+               
+                guard let dictionary = data.value as? Dictionary<String,AnyObject> else{
+                    print("Error casting \(String(describing: data.value))")
+                    return
+                }
+                
+                let post = Post(postId: postId, dictonary: dictionary)
+                print("post count \(String(describing: self?.posts.count)) \(String(describing: post.creationDate)) \(post.postId)")
+                
+                if let posts = self?.posts, posts.contains(post){
+                    
+                }else{
+                    self?.posts.append(post)
+                }
+            
+               
+                
+                self?.posts.sort(by: { (post1, post2) -> Bool in
+                    return post1.creationDate > post2.creationDate
+                })
+                
+              
+             //   self?.collectionView.reloadData()
+               
+                if self?.posts.count == count  {
+                        
+                        completed()
+                    }
+              //  completed()
+                print("mdo: ==== \(self?.posts.count) count is \(count)")
+                }
+
+        }
+
+        }
+       
+    }
+    
+    //MARK: - return posts count
+    
+    private func postsCount(for uid:String, completion: @escaping (Int)-> Void){
+        
+       // self.posts = [Post]()
+        USER_POSTS_REF.child(uid).observe(.value) { (data) in
+            
+            print("postsCount.data.children.allObjects.count \(data.children.allObjects.count)")
+            completion(data.children.allObjects.count)
+            
+        }
+    }
     
     //MARK: - retieveUserData
     
@@ -104,7 +195,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         guard let userId = Auth.auth().currentUser?.uid else { return }
         Database.database().reference().child("users").child(userId).observeSingleEvent(of: .value) { [weak self] snapData in
             
-            print("snapData \(snapData.value.debugDescription)")
+           // print("snapData \(snapData.value.debugDescription)")
          
             
             guard let `self` = self else { return }
@@ -129,10 +220,12 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
             retieveUserData()
         }else{
             self.navigationItem.title = self.user?.userName
+            print("configureUserData.user.uid \(String(describing: user?.uid))")
            // self.collectionView.reloadData()
         }
         
     }
+    
     
     
     
@@ -159,7 +252,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     }
     
     func setUserStats(for header: UserProfileHeader) {
-        print("setUserStats")
+     //   print("setUserStats")
         var numberOfFollowers: Int!
         var numberOfFollowing:Int!
         
@@ -169,10 +262,10 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         
         // get number of followers
         
-        Database.database().reference().child("user-followers").child(uid).observe(.value) { (dataSnap) in
+        Database.database().reference().child("user-followers").child(uid).observeSingleEvent(of:.value) { (dataSnap) in
             //
             
-            print("dataSnap 222 \(dataSnap)")
+         //   print("dataSnap 222 \(dataSnap)")
             if let dataSnap = dataSnap.value as? Dictionary<String,AnyObject> {
                 numberOfFollowers = dataSnap.count
             }else{
@@ -185,15 +278,12 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
             attributedText.append(NSMutableAttributedString(string: "followers",
                                                             attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor :
                                                                             UIColor.lightGray]))
+            
             header.followersLable.attributedText = attributedText
         }
-        
 
-        
-       
-        
         Database.database().reference().child("user-following").child(uid).observeSingleEvent(of: .value) { (dataSnap) in
-            
+            print("user-following.dataSnap \(dataSnap)")
             if let dataSnap = dataSnap.value  as? Dictionary<String,AnyObject>{
                 numberOfFollowing = dataSnap.count
             }else{
@@ -211,23 +301,32 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
             header.followingLable.attributedText = attributedText
         }
         
-        
-        
-    }
+        postsCount(for: uid) { (count) in
+            
+            let attributedText = NSMutableAttributedString(string: "\(count)\n",attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])
+            
+            attributedText.append(NSMutableAttributedString(string: "posts", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor :UIColor.lightGray]))
+            
+            header.postsLable.attributedText = attributedText
+            
+        }
+}
     
     func handleFollowersTapped(for header: UserProfileHeader) {
         
-        print("delegatehandleFollowersTapped...")
+        print("handleFollowersTapped...")
         
         let followController = FollowController()
         followController.followTitle = true
+        print("handleFollowersTapped.userId \(String(describing: user?.uid))")
         followController.user = self.user
         navigationController?.pushViewController(followController, animated: true)
         
     }
     
     func handleFollowingTapped(for header: UserProfileHeader) {
-        print("handleFollowersTapped delegate")
+        print("handleFollowingTapped delegate")
+        print("handleFollowingTapped.userId \(String(describing: user?.uid))")
         let followController = FollowController()
         followController.user = self.user
         navigationController?.pushViewController(followController, animated: true)

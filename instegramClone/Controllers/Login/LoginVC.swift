@@ -67,6 +67,7 @@ class LoginVC:UIViewController{
         button.layer.cornerRadius = 5
         button.isEnabled = false
         button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
+        button.tintColor = .white
         return button
     }()
     

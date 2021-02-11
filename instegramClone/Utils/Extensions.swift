@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-
+import FirebaseDatabase
 extension UIView{
     
     
@@ -53,34 +53,48 @@ extension UIView{
         
     }
 }
-var imageCache = [String: UIImage]()
+
 extension UIImageView{
     
-    func loadImage(with urlString:String){
-        if let cachedImage = imageCache[urlString]{
+
+    
+    func loadImage(for url: String){
+        self.image = nil
+        if let cachedImage = imageCache[url]{
             self.image = cachedImage
             return
         }
         
-        guard let url = URL(string: urlString) else {return}
+        let urlFireBase = URL(string: url)!
         
-        URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+        DispatchQueue.global().async {
+          //  self.image = nil
+            let data = try? Data(contentsOf: urlFireBase)
+            let image = UIImage(data: data!)
+           
             
-            if let error = error{
-                print("loadImage.error \(error.localizedDescription)")
-            }
-            
-            guard let data = data else{ return}
-            
-            let photoImage = UIImage(data: data)
-            imageCache[url.absoluteString] = photoImage
-            
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+  
+                self?.image = image
                 
-                self.image = photoImage
             }
             
-        }).resume()
+        }
     }
     
+}
+extension Database{
+    static func fetchUser(with uid: String, completion: @escaping (User)->()){
+        
+        USER_REF.child(uid).observeSingleEvent(of: .value) { (dataSnap) in
+            // there we do action
+            
+            guard let dictionary  = dataSnap.value as? Dictionary<String,AnyObject> else{
+                return
+            }
+            let user = User(uid: uid, dictionary: dictionary)
+            
+            completion(user)
+        }
+    }
 }

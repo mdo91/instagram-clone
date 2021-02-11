@@ -56,6 +56,7 @@ class SearchViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! SearchUserCell
         
         cell.user = self.users[indexPath.row]
+        print("SearchViewController.tableView cell \(String(describing: cell.user?.uid))")
 
         return cell
     }
@@ -64,6 +65,7 @@ class SearchViewController: UITableViewController {
         let user = self.users[indexPath.row]
         
         let userProfileController = UserProfileViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        print("SearchViewController.tableView didSelectRowAt \(String(describing: user.uid))")
         userProfileController.user = user
         userProfileController.searchUser = true
         self.navigationController?.pushViewController(userProfileController, animated: true)
@@ -91,7 +93,6 @@ class SearchViewController: UITableViewController {
             self.users.append(user)
           //  self.users.append(dataSnap.value)
             self.tableView.reloadData()
-            
             
         }
     }

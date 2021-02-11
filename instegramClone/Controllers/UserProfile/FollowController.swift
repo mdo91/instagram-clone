@@ -11,7 +11,10 @@ import FirebaseAuth
 import FirebaseDatabase
 
 private let reuseIdentifier = "FollowCell"
-class FollowController: UITableViewController {
+class FollowController: UITableViewController, FollowCellDelegate {
+
+    
+
     
     //MARK- properties
     var followTitle = false
@@ -51,10 +54,25 @@ class FollowController: UITableViewController {
         if let user = userData[indexPath.row]{
             
             cell.user = user
+            cell.delegate = self
         }
         cell.isUserInteractionEnabled = true
+        cell.selectionStyle  = .none
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let user = userData[indexPath.row]
+        
+        let profileController = UserProfileViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        profileController.user = user
+        profileController.searchUser = true
+        print("user name \(String(describing: user?.name)) \(String(describing: user?.uid))")
+        navigationController?.pushViewController(profileController, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+       
+    }
+    
     
     
     //MARK: - navBar title configurations
@@ -73,8 +91,9 @@ class FollowController: UITableViewController {
     //MARK: - retrieve users
     
     private func retrieveUsers(){
-        
+        var userID = ""
         guard let currentUser = Auth.auth().currentUser?.uid else { return }
+        userID = currentUser
         var ref: DatabaseReference!
         if followTitle{
             // set reference
@@ -83,8 +102,10 @@ class FollowController: UITableViewController {
             // set reference
             ref = Database.database().reference().child("user-following")
         }
-        
-        ref.child(currentUser).observe(.childAdded) { [self] (dataSnap) in
+        if let userId = user?.uid{
+            userID = userId
+        }
+        ref.child(userID).observe(.childAdded) { [self] (dataSnap) in
             // start getting data
             
            // print("dataSnap \(dataSnap.key)")
@@ -103,4 +124,34 @@ class FollowController: UITableViewController {
           //  userData.append(dataSnap)
         }
     }
+    
+    
+    //MARK: - handleFollowTappedDelegate
+    
+    func handleFollowTappedDelegate(for cell: FollowCell) {
+        print("handleFollowTappedDelegate")
+        
+        guard let user = cell.user else {
+            return
+        }
+        
+        if user.isfollowed {
+            print("user.isfollowed")
+            user.unfollow()
+            cell.followButton.setTitle("Follow", for: .normal)
+            cell.followButton.layer.borderWidth = 0
+            cell.followButton.setTitleColor(.white, for: .normal)
+            cell.followButton.backgroundColor = UIColor(red: 17/255, green: 154/255, blue: 237/255, alpha: 1)
+        }else{
+            print("user unfollowed")
+            user.follow()
+            
+            cell.followButton.setTitle("Following", for: .normal)
+            cell.followButton.backgroundColor = .white
+            cell.followButton.setTitleColor(.black, for: .normal)
+            cell.followButton.layer.borderWidth = 0.5
+            cell.followButton.layer.borderColor = UIColor.lightGray.cgColor
+        }
+    }
+    
 }

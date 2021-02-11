@@ -7,7 +7,7 @@
 
 import UIKit
 import Firebase
-class MainTabBarViewController: UITabBarController {
+class MainTabBarViewController: UITabBarController, UITabBarControllerDelegate {
 
     //MARK: - outlets & vars
     
@@ -23,6 +23,8 @@ class MainTabBarViewController: UITabBarController {
         
         // call config
      //   userIsLogginIn()
+        self.delegate = self
+        
         configureViewControllers()
     }
     
@@ -50,8 +52,12 @@ class MainTabBarViewController: UITabBarController {
         
         let searchVC = constructNavController(unselectedImage: UIImage(named: "search_unselected")!, selectedImage: UIImage(named: "search_selected")!, rootViewController: SearchViewController())
         
+        //selectImageController
+        
+        let imageController = constructNavController(unselectedImage: UIImage(named:"plus_unselected")!, selectedImage: UIImage(named:"plus_unselected")!)
+        
         // post
-       let uploadVC = constructNavController(unselectedImage: UIImage(named: "plus_unselected")!, selectedImage: UIImage(named: "plus_unselected")!, rootViewController: UploadPostViewController())
+//       let uploadVC = constructNavController(unselectedImage: UIImage(named: "plus_unselected")!, selectedImage: UIImage(named: "plus_unselected")!, rootViewController: UploadPostViewController())
         
         // notification
         let notificationVC = constructNavController(unselectedImage: UIImage(named: "like_unselected")!, selectedImage: UIImage(named: "like_unselected")!, rootViewController: NotificationViewController())
@@ -62,7 +68,7 @@ class MainTabBarViewController: UITabBarController {
         
         // adding to tab-bar
         
-        viewControllers = [feedVC, searchVC, uploadVC, notificationVC, profileVC]
+        viewControllers = [feedVC, searchVC, imageController, notificationVC, profileVC]
         tabBar.tintColor = .black
         
         
@@ -94,8 +100,6 @@ class MainTabBarViewController: UITabBarController {
             DispatchQueue.main.async {
                 let loginViewController = LoginVC()
                 let navigationController = UINavigationController(rootViewController: loginViewController)
- 
-               
                 self.view.window?.rootViewController = navigationController
                
             }
@@ -108,4 +112,35 @@ class MainTabBarViewController: UITabBarController {
         
       //  userIsLogginIn()
     }
+    
+    
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+    
+    }
+    
+ 
+    
+    
+    
+    
+}
+extension MainTabBarViewController{
+    //MARK: - tabbar protocols
+    
+     func tabBarController(_ tabBarController: UITabBarController,
+                           shouldSelect viewController: UIViewController) -> Bool{
+        
+        let index = viewControllers?.firstIndex(of: viewController)
+        
+        if index == 2 {
+            let selectImageViewController = SelectImageViewController(collectionViewLayout: UICollectionViewFlowLayout())
+            let navController = UINavigationController(rootViewController: selectImageViewController)
+            
+            present(navController, animated: true, completion: nil)
+            
+            return false
+        }
+        return true
+        
+     }
 }

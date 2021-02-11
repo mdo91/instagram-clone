@@ -28,8 +28,8 @@ public class UserProfileHeader: UICollectionViewCell {
         }
     }
     
-    let profileImageView :UIImageView = {
-         let imageView = UIImageView()
+    let profileImageView :CustomImageView = {
+         let imageView = CustomImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.backgroundColor = .lightGray
@@ -48,7 +48,7 @@ public class UserProfileHeader: UICollectionViewCell {
         lable.numberOfLines = 0
       //  lable.text = ""
         lable.textAlignment = .center
-        let attributedText = NSMutableAttributedString(string: "5\n",attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])
+        let attributedText = NSMutableAttributedString(string: "\n",attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])
         
         attributedText.append(NSMutableAttributedString(string: "posts", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor :UIColor.lightGray]))
         
@@ -261,7 +261,7 @@ public class UserProfileHeader: UICollectionViewCell {
     
      func setUserStats(for user: User?){
         
-        print("setUserStats.user \(user?.uid)")
+      //  print("setUserStats.user \(user?.uid)")
         delegate?.setUserStats(for: self)
     }
     
@@ -273,6 +273,7 @@ public class UserProfileHeader: UICollectionViewCell {
         
         print("handleFollowersLableAction")
         delegate?.handleFollowersTapped(for: self)
+        
     }
     
     @objc func handleFollowingLableAction(){
