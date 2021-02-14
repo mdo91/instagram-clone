@@ -14,14 +14,20 @@
 		54069AEA25AD68A6008A57C6 /* UploadPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54069AE925AD68A6008A57C6 /* UploadPostViewController.swift */; };
 		54069AED25AD68C6008A57C6 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54069AEC25AD68C6008A57C6 /* NotificationViewController.swift */; };
 		54069AF025AD68E6008A57C6 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54069AEF25AD68E6008A57C6 /* UserProfileViewController.swift */; };
+		54069AFA25AE15CD008A57C6 /* UserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54069AF925AE15CD008A57C6 /* UserProfileHeader.swift */; };
 		54407B8125AAFE0600F2A637 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54407B8025AAFE0600F2A637 /* SignUpVC.swift */; };
 		545367E325AAC09D00A65BAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545367E225AAC09D00A65BAD /* AppDelegate.swift */; };
 		545367E525AAC09D00A65BAD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545367E425AAC09D00A65BAD /* SceneDelegate.swift */; };
 		545367EA25AAC09D00A65BAD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 545367E825AAC09D00A65BAD /* Main.storyboard */; };
 		545367EF25AAC09F00A65BAD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 545367ED25AAC09F00A65BAD /* LaunchScreen.storyboard */; };
 		545367FC25AAC16500A65BAD /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545367FB25AAC16500A65BAD /* LoginVC.swift */; };
+		546A5EE225B32CDC001349CF /* FollowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546A5EE125B32CDC001349CF /* FollowCell.swift */; };
+		546A5EE525B32CF9001349CF /* FollowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546A5EE425B32CF9001349CF /* FollowController.swift */; };
 		54889C3225AAC8110067FD7A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54889C3125AAC8110067FD7A /* Extensions.swift */; };
 		54889C3725AAD3C50067FD7A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54889C3625AAD3C50067FD7A /* Assets.xcassets */; };
+		549779C225B1566F00B26583 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549779C125B1566F00B26583 /* Protocols.swift */; };
+		54BC421E25AEF95C0011CF7A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BC421D25AEF95C0011CF7A /* User.swift */; };
+		54BC424C25B050070011CF7A /* SearchUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BC424B25B050060011CF7A /* SearchUserCell.swift */; };
 		652A7EE895198F3E9F516256 /* Pods_instegramClone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D22F19542063191067855137 /* Pods_instegramClone.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +40,7 @@
 		54069AE925AD68A6008A57C6 /* UploadPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPostViewController.swift; sourceTree = "<group>"; };
 		54069AEC25AD68C6008A57C6 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		54069AEF25AD68E6008A57C6 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		54069AF925AE15CD008A57C6 /* UserProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeader.swift; sourceTree = "<group>"; };
 		54407B8025AAFE0600F2A637 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		545367DF25AAC09D00A65BAD /* instegramClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = instegramClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		545367E225AAC09D00A65BAD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -42,8 +49,13 @@
 		545367EE25AAC09F00A65BAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		545367F025AAC09F00A65BAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		545367FB25AAC16500A65BAD /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		546A5EE125B32CDC001349CF /* FollowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowCell.swift; sourceTree = "<group>"; };
+		546A5EE425B32CF9001349CF /* FollowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowController.swift; sourceTree = "<group>"; };
 		54889C3125AAC8110067FD7A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		54889C3625AAD3C50067FD7A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		549779C125B1566F00B26583 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		54BC421D25AEF95C0011CF7A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		54BC424B25B050060011CF7A /* SearchUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserCell.swift; sourceTree = "<group>"; };
 		D22F19542063191067855137 /* Pods_instegramClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_instegramClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F64092312D00D50CAC96ED35 /* Pods-instegramClone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-instegramClone.release.xcconfig"; path = "Target Support Files/Pods-instegramClone/Pods-instegramClone.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -69,6 +81,57 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		54069AF325AE1490008A57C6 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				545367FB25AAC16500A65BAD /* LoginVC.swift */,
+				54407B8025AAFE0600F2A637 /* SignUpVC.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		54069AF425AE1499008A57C6 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				54069AE325AD684D008A57C6 /* FeedCollectionViewController.swift */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
+		54069AF525AE14A2008A57C6 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				54BC424A25B04FDF0011CF7A /* cell */,
+				54069AE625AD6886008A57C6 /* SearchViewController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		54069AF625AE14B9008A57C6 /* UploadPost */ = {
+			isa = PBXGroup;
+			children = (
+				54069AE925AD68A6008A57C6 /* UploadPostViewController.swift */,
+			);
+			path = UploadPost;
+			sourceTree = "<group>";
+		};
+		54069AF725AE14C3008A57C6 /* Notfications */ = {
+			isa = PBXGroup;
+			children = (
+				54069AEC25AD68C6008A57C6 /* NotificationViewController.swift */,
+			);
+			path = Notfications;
+			sourceTree = "<group>";
+		};
+		54069AF825AE14DF008A57C6 /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				54069AEF25AD68E6008A57C6 /* UserProfileViewController.swift */,
+				546A5EE425B32CF9001349CF /* FollowController.swift */,
+			);
+			path = UserProfile;
+			sourceTree = "<group>";
+		};
 		545367D625AAC09D00A65BAD = {
 			isa = PBXGroup;
 			children = (
@@ -91,9 +154,10 @@
 			isa = PBXGroup;
 			children = (
 				54889C2F25AAC7E20067FD7A /* Utils */,
+				54BC421C25AEF91D0011CF7A /* Model */,
 				545367FE25AAC22300A65BAD /* AppDelegate */,
-				545367FA25AAC0F100A65BAD /* Controller */,
-				545367F925AAC0EC00A65BAD /* View */,
+				545367FA25AAC0F100A65BAD /* Controllers */,
+				545367F925AAC0EC00A65BAD /* Views */,
 				545367F825AAC0E400A65BAD /* Models */,
 				545367E825AAC09D00A65BAD /* Main.storyboard */,
 				54889C3625AAD3C50067FD7A /* Assets.xcassets */,
@@ -111,26 +175,27 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		545367F925AAC0EC00A65BAD /* View */ = {
+		545367F925AAC0EC00A65BAD /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				54069AF925AE15CD008A57C6 /* UserProfileHeader.swift */,
+				546A5EE125B32CDC001349CF /* FollowCell.swift */,
 			);
-			path = View;
+			path = Views;
 			sourceTree = "<group>";
 		};
-		545367FA25AAC0F100A65BAD /* Controller */ = {
+		545367FA25AAC0F100A65BAD /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				545367FB25AAC16500A65BAD /* LoginVC.swift */,
-				54407B8025AAFE0600F2A637 /* SignUpVC.swift */,
-				54069AE025AD6657008A57C6 /* MainTabBarViewController.swift */,
-				54069AE325AD684D008A57C6 /* FeedCollectionViewController.swift */,
-				54069AE625AD6886008A57C6 /* SearchViewController.swift */,
-				54069AE925AD68A6008A57C6 /* UploadPostViewController.swift */,
-				54069AEC25AD68C6008A57C6 /* NotificationViewController.swift */,
-				54069AEF25AD68E6008A57C6 /* UserProfileViewController.swift */,
+				546A5EE025B32C99001349CF /* Main */,
+				54069AF825AE14DF008A57C6 /* UserProfile */,
+				54069AF725AE14C3008A57C6 /* Notfications */,
+				54069AF625AE14B9008A57C6 /* UploadPost */,
+				54069AF525AE14A2008A57C6 /* Search */,
+				54069AF325AE1490008A57C6 /* Login */,
+				54069AF425AE1499008A57C6 /* Feed */,
 			);
-			path = Controller;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		545367FE25AAC22300A65BAD /* AppDelegate */ = {
@@ -142,12 +207,37 @@
 			path = AppDelegate;
 			sourceTree = "<group>";
 		};
+		546A5EE025B32C99001349CF /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				54069AE025AD6657008A57C6 /* MainTabBarViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		54889C2F25AAC7E20067FD7A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				54889C3125AAC8110067FD7A /* Extensions.swift */,
+				549779C125B1566F00B26583 /* Protocols.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		54BC421C25AEF91D0011CF7A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				54BC421D25AEF95C0011CF7A /* User.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		54BC424A25B04FDF0011CF7A /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				54BC424B25B050060011CF7A /* SearchUserCell.swift */,
+			);
+			path = cell;
 			sourceTree = "<group>";
 		};
 		D9641E6BF43F514077CE872C /* Frameworks */ = {
@@ -273,16 +363,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				549779C225B1566F00B26583 /* Protocols.swift in Sources */,
+				54BC424C25B050070011CF7A /* SearchUserCell.swift in Sources */,
+				54BC421E25AEF95C0011CF7A /* User.swift in Sources */,
 				54069AED25AD68C6008A57C6 /* NotificationViewController.swift in Sources */,
 				545367E325AAC09D00A65BAD /* AppDelegate.swift in Sources */,
 				545367E525AAC09D00A65BAD /* SceneDelegate.swift in Sources */,
+				54069AFA25AE15CD008A57C6 /* UserProfileHeader.swift in Sources */,
 				54069AE725AD6886008A57C6 /* SearchViewController.swift in Sources */,
 				545367FC25AAC16500A65BAD /* LoginVC.swift in Sources */,
 				54069AE125AD6657008A57C6 /* MainTabBarViewController.swift in Sources */,
 				54069AE425AD684D008A57C6 /* FeedCollectionViewController.swift in Sources */,
 				54069AEA25AD68A6008A57C6 /* UploadPostViewController.swift in Sources */,
 				54407B8125AAFE0600F2A637 /* SignUpVC.swift in Sources */,
+				546A5EE525B32CF9001349CF /* FollowController.swift in Sources */,
 				54069AF025AD68E6008A57C6 /* UserProfileViewController.swift in Sources */,
+				546A5EE225B32CDC001349CF /* FollowCell.swift in Sources */,
 				54889C3225AAC8110067FD7A /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

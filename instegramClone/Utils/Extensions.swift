@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-
+import FirebaseDatabase
 extension UIView{
     
     
@@ -50,6 +50,77 @@ extension UIView{
         if height != 0{
             heightAnchor.constraint(equalToConstant: height).isActive = true
         }
+        
+    }
+}
+
+extension UIImageView{
+    
+
+    
+    func loadImage(for url: String){
+        self.image = nil
+        if let cachedImage = imageCache[url]{
+            self.image = cachedImage
+            return
+        }
+        
+        let urlFireBase = URL(string: url)!
+        
+        DispatchQueue.global().async {
+          //  self.image = nil
+            let data = try? Data(contentsOf: urlFireBase)
+            let image = UIImage(data: data!)
+           
+            
+            DispatchQueue.main.async { [weak self] in
+  
+                self?.image = image
+                
+            }
+            
+        }
+    }
+    
+}
+extension Database{
+    static func fetchUser(with uid: String, completion: @escaping (User)->()){
+        
+        USER_REF.child(uid).observeSingleEvent(of: .value) { (dataSnap) in
+            // there we do action
+            
+            guard let dictionary  = dataSnap.value as? Dictionary<String,AnyObject> else{
+                return
+            }
+            let user = User(uid: uid, dictionary: dictionary)
+            
+            completion(user)
+        }
+    }
+    
+    static func fetchPost(with postId: String, completionHandler: @escaping (Post) -> Void){
+        
+        POSTS_REF.child(postId).observeSingleEvent(of: .value) { (dataSnap) in
+            
+            print("============================================")
+            print("\(postId)")
+            print("============================================")
+            
+            guard let dictionary = dataSnap.value as? Dictionary<String,AnyObject> else{
+                return
+            }
+            guard let ownerUid = dictionary["ownerUid"] as? String else { return }
+            
+            Database.fetchUser(with: ownerUid) { (user) in
+                
+                let post = Post(postId: postId, user: user, dictonary: dictionary)
+                
+                completionHandler(post)
+            }
+            
+            
+        }
+        
         
     }
 }
