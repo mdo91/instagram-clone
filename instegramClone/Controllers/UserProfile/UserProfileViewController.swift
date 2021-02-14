@@ -110,6 +110,15 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         return header
     }
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let feedController = FeedCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        feedController.singlePost = true
+        feedController.post = self.posts[indexPath.item]
+        navigationController?.pushViewController(feedController, animated: true)
+        
+    }
+    
 
     
     
@@ -126,52 +135,40 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         }
         
        postsCount(for: uid) { (count) in
-       print("postsCount \(count)")
+       
         self.posts = [Post]()
-        print("posts \(self.posts.count)")
+        
        
         USER_POSTS_REF.child(uid).observe(.childAdded) { (data) in
             //
            
             let postId = data.key
-        
 
             POSTS_REF.child(postId).observeSingleEvent(of: .value) { [weak self](data) in
                
-                guard let dictionary = data.value as? Dictionary<String,AnyObject> else{
-                    print("Error casting \(String(describing: data.value))")
-                    return
-                }
                 
-                let post = Post(postId: postId, dictonary: dictionary)
-                print("post count \(String(describing: self?.posts.count)) \(String(describing: post.creationDate)) \(post.postId)")
-                
-                if let posts = self?.posts, posts.contains(post){
-                    
-                }else{
-                    self?.posts.append(post)
-                }
-            
-               
-                
-                self?.posts.sort(by: { (post1, post2) -> Bool in
-                    return post1.creationDate > post2.creationDate
-                })
-                
-              
-             //   self?.collectionView.reloadData()
-               
-                if self?.posts.count == count  {
+                Database.fetchPost(with: postId) { [weak self] (post) in
+                   
+                    if let posts = self?.posts, posts.contains(post){
+                        print("post postDate \(post.postId ) \( posts.contains(post))")
                         
-                        completed()
+                    }else{
+                        self?.posts.append(post)
                     }
-              //  completed()
-                print("mdo: ==== \(self?.posts.count) count is \(count)")
+                            
+                    self?.posts.sort(by: { (post1, post2) -> Bool in
+                        return post1.creationDate > post2.creationDate
+                    })
+
+                    if self?.posts.count == count  {
+                            
+                            completed()
+                        }
+                    }
                 }
-
         }
-
-        }
+        
+       }
        
     }
     
@@ -182,7 +179,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
        // self.posts = [Post]()
         USER_POSTS_REF.child(uid).observe(.value) { (data) in
             
-            print("postsCount.data.children.allObjects.count \(data.children.allObjects.count)")
+
             completion(data.children.allObjects.count)
             
         }
@@ -283,7 +280,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         }
 
         Database.database().reference().child("user-following").child(uid).observeSingleEvent(of: .value) { (dataSnap) in
-            print("user-following.dataSnap \(dataSnap)")
+           // print("user-following.dataSnap \(dataSnap)")
             if let dataSnap = dataSnap.value  as? Dictionary<String,AnyObject>{
                 numberOfFollowing = dataSnap.count
             }else{
@@ -318,7 +315,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         
         let followController = FollowController()
         followController.followTitle = true
-        print("handleFollowersTapped.userId \(String(describing: user?.uid))")
+      //  print("handleFollowersTapped.userId \(String(describing: user?.uid))")
         followController.user = self.user
         navigationController?.pushViewController(followController, animated: true)
         
@@ -326,7 +323,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     
     func handleFollowingTapped(for header: UserProfileHeader) {
         print("handleFollowingTapped delegate")
-        print("handleFollowingTapped.userId \(String(describing: user?.uid))")
+       // print("handleFollowingTapped.userId \(String(describing: user?.uid))")
         let followController = FollowController()
         followController.user = self.user
         navigationController?.pushViewController(followController, animated: true)

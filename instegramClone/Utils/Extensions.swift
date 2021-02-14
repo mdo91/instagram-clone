@@ -97,4 +97,30 @@ extension Database{
             completion(user)
         }
     }
+    
+    static func fetchPost(with postId: String, completionHandler: @escaping (Post) -> Void){
+        
+        POSTS_REF.child(postId).observeSingleEvent(of: .value) { (dataSnap) in
+            
+            print("============================================")
+            print("\(postId)")
+            print("============================================")
+            
+            guard let dictionary = dataSnap.value as? Dictionary<String,AnyObject> else{
+                return
+            }
+            guard let ownerUid = dictionary["ownerUid"] as? String else { return }
+            
+            Database.fetchUser(with: ownerUid) { (user) in
+                
+                let post = Post(postId: postId, user: user, dictonary: dictionary)
+                
+                completionHandler(post)
+            }
+            
+            
+        }
+        
+        
+    }
 }

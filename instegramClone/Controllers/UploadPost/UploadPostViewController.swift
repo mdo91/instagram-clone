@@ -147,6 +147,8 @@ class UploadPostViewController: UIViewController, UITextViewDelegate, UITabBarCo
                     // generate post id
                     
                     let postId = POSTS_REF.childByAutoId()
+                    guard let postID = postId.key else {return}
+                    self.updateUserFeed(with: postID)
                     
                     //upload info to database
                     
@@ -192,5 +194,33 @@ class UploadPostViewController: UIViewController, UITextViewDelegate, UITabBarCo
         shareButton.isEnabled = true
 
     }
+    
+    //MARK: - API requests
+    
+    private func updateUserFeed(with postId: String){
+        
+        guard let currentUid = Auth.auth().currentUser?.uid else {
+            return
+        }
+        
+        // database value
+        
+        let values = [postId:1]
+        
+        // update follower feed
+        
+        USER_FOLLOWER_REF.child(currentUid).observe(.childAdded) { (dataSnap) in
+            
+            let followerUid = dataSnap.key
+            USER_FEED_REF.child(followerUid).updateChildValues(values)
+        }
+        
+        // update current user feed
+        USER_FEED_REF.child(currentUid).updateChildValues(values)
+        
+        
+    }
+    
+
 
 }

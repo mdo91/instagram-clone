@@ -32,6 +32,8 @@ class UserPostCell:UICollectionViewCell{
         return imageView
     }()
     
+    
+    
     //MARK: - cell life cycle
     
     override init(frame: CGRect) {

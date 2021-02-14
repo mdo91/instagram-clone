@@ -7,13 +7,14 @@
 
 import Foundation
 
-protocol FeedCellDelegate {
-    func handleUserNameTapped(for cell:String)
-    func handleOptionTapped(for cell:String)
-    func handleLikeTapped(for cell:String)
-    func handleCommentTapped(for cell: String)
-    func handleShowLikesForCell(for cell: String)
-    func configureCommentIndicatorView(for cell: String)
+protocol FeedCellDelegate:class {
+    func handleUserNameTapped(for cell:FeedCell)
+    func handleOptionTapped(for cell:FeedCell)
+    func handleLikeTapped(for cell:FeedCell)
+    func handleCommentTapped(for cell: FeedCell)
+    func handleShowLikesForCell(for cell: FeedCell)
+    func configureCommentIndicatorView(for cell: FeedCell)
+    func handleMessageButtonTapped(for cell:FeedCell)
 }
 
 
@@ -30,3 +31,4 @@ protocol UserProfileHeaderDelegate:class{
 protocol FollowCellDelegate:class {
     func handleFollowTappedDelegate(for cell: FollowCell)
 }
+

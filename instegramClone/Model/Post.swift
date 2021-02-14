@@ -19,8 +19,11 @@ struct Post:Hashable{
     var ownerUid:String!
     var creationDate:Date!
     var postId:String
+    var user: User?
     
-    init(postId:String,dictonary:Dictionary<String,AnyObject>) {
+    init(postId:String, user: User, dictonary:Dictionary<String,AnyObject>) {
+        
+        self.user = user
         
         self.postId = postId
         

@@ -63,10 +63,12 @@ public class User{
         
         // add followed user posts to home screen
         
-        Database.database().reference().child("user-posts").child(uid).observe(.childAdded) { (dataSnap) in
+        USER_POSTS_REF.child(self.uid).observe(.childAdded) { (dataSnap) in
+            // there we update the values
             
             let postId = dataSnap.key
-            Database.database().reference().child("user-feed").child(currentUser).updateChildValues([postId:1])
+            
+            USER_FEED_REF.child(currentUser).child(postId).updateChildValues([postId:1])
         }
         
         
@@ -98,12 +100,14 @@ public class User{
         
       //  USER_FOLLOWER_REF.child(uid).child(currentUid).removeValue()
         
-        Database.database().reference().child("user-posts").child(uid).observe(.childAdded) { (dataSnap) in
-            
-            
-            let postId = dataSnap.key
-            Database.database().reference().child("user-feed").child(postId).removeValue()
         
+        // remove followed Users posts from feed
+        
+        USER_POSTS_REF.child(self.uid).observe(.childAdded) { (dataSnapt) in
+            //
+            let postId = dataSnapt.key
+            
+            USER_FEED_REF.child(currentUser).child(postId).removeValue()
         }
         
         
