@@ -12,7 +12,8 @@ private let reuseIdentifier = "Cell"
 class FeedCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, FeedCellDelegate {
 
     
- 
+
+
     //MAKR: - vars & properties
     
     var posts = [Post]()
@@ -170,9 +171,6 @@ class FeedCollectionViewController: UICollectionViewController, UICollectionView
         return CGSize(width: width, height: height)
     }
     
-
-    
-    
     //MARK: - API
     
     private func fetchPosts(){
@@ -183,9 +181,7 @@ class FeedCollectionViewController: UICollectionViewController, UICollectionView
 
             
             Database.fetchPost(with: postId) { (post) in
-                
-                
-                
+
                 self?.posts.append(post)
                 
                 self?.posts.sort(by: { (post1, post2) -> Bool in
@@ -203,12 +199,11 @@ class FeedCollectionViewController: UICollectionViewController, UICollectionView
         guard let currentUid = Auth.auth().currentUser?.uid else{ return }
         
         USER_FOLLOWING_REF.child(currentUid).observe(.childAdded) { (snapShot) in
-            // action
-            print("updateUserFeed \(snapShot)")
+
             let followingUserId = snapShot.key
             
             USER_POSTS_REF.child(followingUserId).observe(.childAdded) { (dataSnap) in
-                print("updateUserFeed \(dataSnap)")
+  
                 let postId = dataSnap.key
                 
                 USER_FEED_REF.child(postId).updateChildValues([postId:1])
@@ -224,17 +219,38 @@ class FeedCollectionViewController: UICollectionViewController, UICollectionView
         }
     }
 
-
 }
 extension FeedCollectionViewController{
     
     //MARK: - Feed Cell Delegates
     
+    func handleConfigureLikeButton(for cell: FeedCell) {
+        
+        guard let post = cell.post else {return}
+        guard let postId =  cell.post?.postId  else{ return }
+        guard let currentUid = Auth.auth().currentUser?.uid else { return  }
+        
+        USER_LIKES_REF.child(currentUid).observeSingleEvent(of:.value) { (dataSnap) in
+            //
+           
+            if dataSnap.hasChild(postId){
+                post.didLike = true
+                cell.likeButton.setImage(UIImage(named:"like_selected")!, for: .normal)
+            }else{
+                
+                cell.likeButton.setImage(UIImage(named:"like_unselected")!, for: .normal)
+            }
+            
+        }
+        
+    }
+    
     func handleUserNameTapped(for cell: FeedCell) {
         
         let post = cell.post
-        
+
         let profileController = UserProfileViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        profileController.searchUser = true
         profileController.user = post?.user
         
         navigationController?.pushViewController(profileController, animated: true)
@@ -247,6 +263,33 @@ extension FeedCollectionViewController{
     
     func handleLikeTapped(for cell: FeedCell) {
         
+        guard let post = cell.post else { return }
+        guard let postId = cell.post?.postId else { return}
+        if post.didLike {
+            post.adjustLikes(addLike: false, completionHandler: {  likes in
+             
+                cell.likeButton.setImage(UIImage(named:"like_unselected")!, for: .normal)
+                cell.likesLable.text = "\(likes) Likes"
+                
+            })
+           
+           
+        }else{
+            
+            post.adjustLikes(addLike: true, completionHandler: { likes in
+                
+            cell.likeButton.setImage(UIImage(named:"like_selected")!, for: .normal)
+                cell.likesLable.text = "\(likes) Likes"
+                
+            })
+            
+        }
+        
+   
+    }
+    
+    func handleShowLikes(for cell: FeedCell) {
+       
     }
     
     func handleCommentTapped(for cell: FeedCell) {
@@ -254,7 +297,15 @@ extension FeedCollectionViewController{
     }
     
     func handleShowLikesForCell(for cell: FeedCell) {
+        print("handleShowLikesForCell")
+        guard let post = cell.post else { return }
         
+        
+        let followLikesController = FollowLikeController()
+        followLikesController.viewMode = FollowLikeController.ViewingMode(index: 2)
+        followLikesController.postId = post.postId
+        
+        navigationController?.pushViewController(followLikesController, animated: true)
     }
     
     func configureCommentIndicatorView(for cell: FeedCell) {

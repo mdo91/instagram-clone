@@ -22,6 +22,7 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     var user: User?{
         didSet{
            // print("user \(String(describing: user?.uid))")
+            
         }
     }
     
@@ -313,8 +314,9 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
         
         print("handleFollowersTapped...")
         
-        let followController = FollowController()
-        followController.followTitle = true
+        let followController = FollowLikeController()
+        //followController.followTitle = true
+        followController.viewMode = FollowLikeController.ViewingMode(index: 1)
       //  print("handleFollowersTapped.userId \(String(describing: user?.uid))")
         followController.user = self.user
         navigationController?.pushViewController(followController, animated: true)
@@ -324,7 +326,8 @@ class UserProfileViewController: UICollectionViewController, UICollectionViewDel
     func handleFollowingTapped(for header: UserProfileHeader) {
         print("handleFollowingTapped delegate")
        // print("handleFollowingTapped.userId \(String(describing: user?.uid))")
-        let followController = FollowController()
+        let followController = FollowLikeController()
+        followController.viewMode = FollowLikeController.ViewingMode(index: 0)
         followController.user = self.user
         navigationController?.pushViewController(followController, animated: true)
     }

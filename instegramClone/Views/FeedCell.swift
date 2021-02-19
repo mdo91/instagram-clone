@@ -39,8 +39,9 @@ class FeedCell:UICollectionViewCell{
             guard let url = URL(string: imageURL) else { return}
             self.postImageView.kf.setImage(with: url)
             self.configurePostLikesUser()
-           
             
+            configLikeButton()
+       
         }
     }
     
@@ -86,6 +87,7 @@ class FeedCell:UICollectionViewCell{
         button.tintColor = .black
       //  button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.addTarget(self, action: #selector(likeButtonActionHandler), for: .touchUpInside)
+        
         return button
     }()
     
@@ -119,8 +121,12 @@ class FeedCell:UICollectionViewCell{
     
     lazy var likesLable:UILabel = {
        let lable = UILabel()
-        lable.text = "3 likes"
+        lable.text = ""
         lable.font = UIFont.boldSystemFont(ofSize: 13)
+        let gestureRegcognizer = UITapGestureRecognizer(target: self, action: #selector(likeLableActionHandler))
+        gestureRegcognizer.numberOfTapsRequired = 1
+        lable.isUserInteractionEnabled = true
+        lable.addGestureRecognizer(gestureRegcognizer)
         return lable
     }()
     
@@ -258,5 +264,15 @@ class FeedCell:UICollectionViewCell{
     
     @objc func messageButtonActionHandler(){
         delegate?.handleMessageButtonTapped(for: self)
+    }
+    @objc func likeLableActionHandler(){
+        delegate?.handleShowLikesForCell(for: self)
+    }
+    
+    //MARK: - config like button
+    
+    private func configLikeButton(){
+        
+        delegate?.handleConfigureLikeButton(for: self)
     }
 }
