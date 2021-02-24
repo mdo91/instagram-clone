@@ -1,6 +1,11 @@
 # instagram-clone
 instagram-like app integrated with firebase 
 
+## Screenshots 
+
+<img src="https://github.com/mdo91/instagram-clone/blob/master/insta-gif/singIn.gif" width="250" alt="App Screenshot 1"> <img src=".https://github.com/mdo91/instagram-clone/blob/master/insta-gif/signup.gif" width="250" alt="App Screenshot 2">
+
+
 
 # MVVM(Model-View-View-Model)
 This repository contains an ios project that demonstrates Instagram-like app integrated with firebase using mvvm desgin pattern without using storyboards. 
