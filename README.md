@@ -3,7 +3,7 @@ instagram-like app integrated with firebase
 
 ## Screenshots 
 
-<img src="https://github.com/mdo91/instagram-clone/blob/master/insta-gif/singIn.gif" width="250" alt="App Screenshot 1"> <img src=".https://github.com/mdo91/instagram-clone/blob/master/insta-gif/signup.gif" width="250" alt="App Screenshot 2">
+<img src="./insta-gif/singIn.gif" width="250" alt="App Screenshot 1"> <img src="https://github.com/mdo91/instagram-clone/blob/master/insta-gif/signup.gif" width="250" alt="App Screenshot 2">
 
 
 
