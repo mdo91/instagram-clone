@@ -10,13 +10,14 @@ import Foundation
 protocol FeedCellDelegate:class {
     func handleUserNameTapped(for cell:FeedCell)
     func handleOptionTapped(for cell:FeedCell)
-    func handleLikeTapped(for cell:FeedCell)
+    func handleLikeTapped(for cell:FeedCell, isDouble:Bool)
     func handleCommentTapped(for cell: FeedCell)
     func handleShowLikesForCell(for cell: FeedCell)
     func configureCommentIndicatorView(for cell: FeedCell)
     func handleMessageButtonTapped(for cell:FeedCell)
     func handleConfigureLikeButton(for cell: FeedCell)
     func handleShowLikes(for cell:FeedCell)
+    
 }
 
 

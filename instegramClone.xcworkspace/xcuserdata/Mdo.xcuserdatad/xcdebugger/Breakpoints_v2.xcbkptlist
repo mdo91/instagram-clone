@@ -199,54 +199,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9B3CD30C-2F98-4572-ADEE-D968C430119B"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "instegramClone/Controllers/UserProfile/UserProfileViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "180"
-            endingLineNumber = "180"
-            landmarkName = "postsCount(for:completion:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "9B3CD30C-2F98-4572-ADEE-D968C430119B - fe07b1861027a24"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "instegramClone.UserProfileViewController.(postsCount in _0CDCC1D1C0899220CC247AB7678F69EA)(for: Swift.String, completion: (Swift.Int) -&gt; ()) -&gt; ()"
-                  moduleName = "instegramClone"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mahmoudaoata/Documents/ios%20projects/instagram-clone/instegramClone/instegramClone/Controllers/UserProfile/UserProfileViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "171"
-                  endingLineNumber = "171"
-                  offsetFromSymbolStart = "66">
-               </Location>
-               <Location
-                  uuid = "9B3CD30C-2F98-4572-ADEE-D968C430119B - b9c8fbfb112ac0a4"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (__C.FIRDataSnapshot) -&gt; () in instegramClone.UserProfileViewController.(postsCount in _0CDCC1D1C0899220CC247AB7678F69EA)(for: Swift.String, completion: (Swift.Int) -&gt; ()) -&gt; ()"
-                  moduleName = "instegramClone"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/mahmoudaoata/Documents/ios%20projects/instagram-clone/instegramClone/instegramClone/Controllers/UserProfile/UserProfileViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "173"
-                  endingLineNumber = "173"
-                  offsetFromSymbolStart = "41">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "B968460D-AC77-45A8-9BF1-4979282A3306"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -430,8 +382,8 @@
             filePath = "instegramClone/Controllers/Feed/FeedCollectionViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
             landmarkName = "handleConfigureLikeButton(for:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -446,8 +398,8 @@
             filePath = "instegramClone/Views/FeedCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "269"
-            endingLineNumber = "269"
+            startingLineNumber = "276"
+            endingLineNumber = "276"
             landmarkName = "likeLableActionHandler()"
             landmarkType = "7">
          </BreakpointContent>

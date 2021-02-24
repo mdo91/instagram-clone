@@ -218,6 +218,41 @@ class FeedCollectionViewController: UICollectionViewController, UICollectionView
             USER_FEED_REF.child(currentUid).updateChildValues([postId:1])
         }
     }
+    
+    private func sendLikeNotificationToserver(post:Post,didLike:Bool){
+        // properties
+        guard let currentUid = Auth.auth().currentUser?.uid else{ return }
+      //  guard let postID = post?.postId else {return}
+        let creationDate = Int(NSDate().timeIntervalSince1970)
+        
+        // send notificaition to the server
+        
+        if didLike{
+            if currentUid != post.ownerUid{
+                
+                // notification values
+                
+                let values = ["checked":0,
+                              "creationDate":creationDate,
+                              "uid":currentUid,
+                              "type":LIKE_INT_VALUE,
+                              "postId":post.postId] as [String : Any]
+                
+                print("sendLikeNotificationToserver \(values)")
+                // notification database ref
+                let notificationRef = NOTIFICATIONS_REF.child(post.ownerUid).childByAutoId()
+                
+                // upload notification values to database
+                
+                notificationRef.updateChildValues(values) { (error, dbRef) in
+                    USER_LIKES_REF.child(currentUid).child(post.postId).setValue(notificationRef.key)
+                }
+            }
+        }else{
+            
+        }
+        
+    }
 
 }
 extension FeedCollectionViewController{
@@ -261,17 +296,20 @@ extension FeedCollectionViewController{
         
     }
     
-    func handleLikeTapped(for cell: FeedCell) {
+    func handleLikeTapped(for cell: FeedCell,isDouble:Bool) {
         
         guard let post = cell.post else { return }
-        guard let postId = cell.post?.postId else { return}
+      //  guard let postId = cell.post?.postId else { return}
         if post.didLike {
-            post.adjustLikes(addLike: false, completionHandler: {  likes in
-             
-                cell.likeButton.setImage(UIImage(named:"like_unselected")!, for: .normal)
-                cell.likesLable.text = "\(likes) Likes"
-                
-            })
+            
+            if !isDouble{
+                post.adjustLikes(addLike: false, completionHandler: {  likes in
+                 
+                    cell.likeButton.setImage(UIImage(named:"like_unselected")!, for: .normal)
+                    cell.likesLable.text = "\(likes) Likes"
+                    
+                })
+            }
            
            
         }else{
@@ -279,7 +317,10 @@ extension FeedCollectionViewController{
             post.adjustLikes(addLike: true, completionHandler: { likes in
                 
             cell.likeButton.setImage(UIImage(named:"like_selected")!, for: .normal)
-                cell.likesLable.text = "\(likes) Likes"
+            cell.likesLable.text = "\(likes) Likes"
+            self.sendLikeNotificationToserver(post: post, didLike: true)
+                
+                
                 
             })
             

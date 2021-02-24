@@ -35,6 +35,7 @@
 		54889C3225AAC8110067FD7A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54889C3125AAC8110067FD7A /* Extensions.swift */; };
 		54889C3725AAD3C50067FD7A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54889C3625AAD3C50067FD7A /* Assets.xcassets */; };
 		549779C225B1566F00B26583 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549779C125B1566F00B26583 /* Protocols.swift */; };
+		54A300BE25DFF09900EE30A0 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A300BD25DFF09900EE30A0 /* NotificationCell.swift */; };
 		54BC421E25AEF95C0011CF7A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BC421D25AEF95C0011CF7A /* User.swift */; };
 		54BC424C25B050070011CF7A /* SearchUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BC424B25B050060011CF7A /* SearchUserCell.swift */; };
 		652A7EE895198F3E9F516256 /* Pods_instegramClone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D22F19542063191067855137 /* Pods_instegramClone.framework */; };
@@ -72,6 +73,7 @@
 		54889C3125AAC8110067FD7A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		54889C3625AAD3C50067FD7A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		549779C125B1566F00B26583 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		54A300BD25DFF09900EE30A0 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		54BC421D25AEF95C0011CF7A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		54BC424B25B050060011CF7A /* SearchUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserCell.swift; sourceTree = "<group>"; };
 		D22F19542063191067855137 /* Pods_instegramClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_instegramClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -203,6 +205,7 @@
 				5471302925CC192100E47A89 /* SelectPhotoHeader.swift */,
 				54510A0F25D3CE8D00166FD0 /* UserPostCell.swift */,
 				54510A3425D579FE00166FD0 /* FeedCell.swift */,
+				54A300BD25DFF09900EE30A0 /* NotificationCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -400,6 +403,7 @@
 				54069AED25AD68C6008A57C6 /* NotificationViewController.swift in Sources */,
 				545367E325AAC09D00A65BAD /* AppDelegate.swift in Sources */,
 				5471302325CC150100E47A89 /* SelectImageViewController.swift in Sources */,
+				54A300BE25DFF09900EE30A0 /* NotificationCell.swift in Sources */,
 				545367E525AAC09D00A65BAD /* SceneDelegate.swift in Sources */,
 				54069AFA25AE15CD008A57C6 /* UserProfileHeader.swift in Sources */,
 				54069AE725AD6886008A57C6 /* SearchViewController.swift in Sources */,

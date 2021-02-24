@@ -78,6 +78,13 @@ class FeedCell:UICollectionViewCell{
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.backgroundColor = .lightGray
+        
+        // gesture tap recoginzer
+        let likeTap = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTapToLike))
+        likeTap.numberOfTapsRequired = 2
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(likeTap)
+        
         return imageView
     }()
     
@@ -254,7 +261,7 @@ class FeedCell:UICollectionViewCell{
     
     @objc func likeButtonActionHandler(){
         
-        delegate?.handleLikeTapped(for: self)
+        delegate?.handleLikeTapped(for: self, isDouble: false)
     }
     
     @objc func commentButtonActionHandler(){
@@ -267,6 +274,11 @@ class FeedCell:UICollectionViewCell{
     }
     @objc func likeLableActionHandler(){
         delegate?.handleShowLikesForCell(for: self)
+    }
+    
+    @objc func handleDoubleTapToLike(){
+        delegate?.handleLikeTapped(for: self, isDouble: true)
+        
     }
     
     //MARK: - config like button
