@@ -122,17 +122,15 @@ public class User{
         
         Database.database().reference().child("user-following").child(currentUser).observeSingleEvent(of: .value) { (dataSnap) in
             //
-            print("checkIfUserFollowed. user \(String(describing: self.uid))")
-            print("checkIfUserFollowed.dataSpan \(dataSnap)")
+          
             if dataSnap.hasChild(self.uid){
                 self.isfollowed  = true
                 completion(true)
-                print("checkIfUserFollowed.followed")
             }else{
                 
                 self.isfollowed = false
                 completion(false)
-                print("checkIfUserFollowed.unfollowed")
+
             }
         }
         

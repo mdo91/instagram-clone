@@ -11,25 +11,45 @@ import FirebaseAuth
 import FirebaseDatabase
 
 private let reuseIdentifier = "FollowCell"
-class FollowController: UITableViewController, FollowCellDelegate {
+class FollowLikeController: UITableViewController, FollowCellDelegate {
 
     
 
     
     //MARK- properties
-    var followTitle = false
+    enum ViewingMode:Int{
+        
+        case Following
+        case Followers
+        case Likes
+        
+        init(index: Int) {
+            
+            switch index {
+            case 0: self = .Following
+            case 1: self = .Followers
+            case 2: self = .Likes
+            
+            default: self = .Following
+                
+            }
+        }
+    }
+    
     var userData:[User?] = [User?]()
     var user:User?
+    var viewMode:ViewingMode!
+    var postId: String?
     
     //MARK: - ViewController life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(FollowCell.self, forCellReuseIdentifier: reuseIdentifier)
+        tableView.register(FollowLikeCell.self, forCellReuseIdentifier: reuseIdentifier)
       //   tableView.allowsSelection = false
         navigationBarTitleConfig()
         tableView.separatorColor = .clear
-        retrieveUsers()
+        retrieveUsers(by:self.viewMode)
     }
     
     
@@ -50,7 +70,7 @@ class FollowController: UITableViewController, FollowCellDelegate {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! FollowCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! FollowLikeCell
         if let user = userData[indexPath.row]{
             
             cell.user = user
@@ -79,56 +99,80 @@ class FollowController: UITableViewController, FollowCellDelegate {
     
     private func navigationBarTitleConfig(){
         
-        if followTitle{
-            self.navigationItem.title = "Followers"
-        }else{
-            self.navigationItem.title = "Following"
+        switch viewMode {
+        case .Followers: self.navigationItem.title = "Followers"
+        case .Following: self.navigationItem.title = "Following"
+        case .Likes: self.navigationItem.title = "Likes"
+        default: break
         }
+
         
     }
     
     
     //MARK: - retrieve users
     
-    private func retrieveUsers(){
+    private func retrieveUsers(by viewMode: ViewingMode){
         var userID = ""
         guard let currentUser = Auth.auth().currentUser?.uid else { return }
         userID = currentUser
-        var ref: DatabaseReference!
-        if followTitle{
-            // set reference
-            ref = Database.database().reference().child("user-followers")
-        }else{
-            // set reference
-            ref = Database.database().reference().child("user-following")
-        }
+        let ref: DatabaseReference! = getDatabaseReference()
+        
         if let userId = user?.uid{
             userID = userId
         }
-        ref.child(userID).observe(.childAdded) { [self] (dataSnap) in
-            // start getting data
+        
+        switch viewMode {
+        case .Followers, .Following:
+                
+                ref.child(userID).observeSingleEvent(of: .value) { (snapShot) in
+                    guard let allObjects = snapShot.children.allObjects as? [DataSnapshot] else { return }
+                    allObjects.forEach { (data) in
+                        let uid = data.key
+                        self.fetchUser(with: uid)
+                    }
+                }
             
-           // print("dataSnap \(dataSnap.key)")
+        case .Likes:
             
-            let userId = dataSnap.key
-            Database.database().reference().child("users").child(userId).observeSingleEvent(of: .value) { (dataSnap) in
-                guard let dictionary = dataSnap.value as? Dictionary<String,AnyObject> else{ return}
-                
-                let user = User(uid: userId, dictionary: dictionary)
-                
-                userData.append(user)
-                print("user ... \(userData)")
-                tableView.reloadData()
-                
+            guard let postId = self.postId else { return }
+            
+            ref.child(postId).observe(.childAdded) { (dataSnap) in
+               
+                let uid = dataSnap.key
+                self.fetchUser(with: uid)
+ 
             }
-          //  userData.append(dataSnap)
+        
+        }
+
+     
+    }
+    
+    private func getDatabaseReference() -> DatabaseReference?{
+        switch self.viewMode {
+        case .Followers: return Database.database().reference().child("user-followers")
+        case .Following: return Database.database().reference().child("user-following")
+        case .Likes: return Database.database().reference().child("post-likes")
+        default: return nil
+        }
+    }
+    
+    //MARK: - helpers
+    
+    private func fetchUser(with uid:String){
+        Database.fetchUser(with: uid) { (user) in
+            print(user)
+            self.userData.append(user)
+            self.tableView.reloadData()
+            
         }
     }
     
     
     //MARK: - handleFollowTappedDelegate
     
-    func handleFollowTappedDelegate(for cell: FollowCell) {
+    func handleFollowTappedDelegate(for cell: FollowLikeCell) {
         print("handleFollowTappedDelegate")
         
         guard let user = cell.user else {
