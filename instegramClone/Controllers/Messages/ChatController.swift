@@ -54,8 +54,9 @@ class ChatController:UICollectionViewController,UICollectionViewDelegateFlowLayo
     
     override var inputAccessoryView: UIView?{
         get{
-           // containerView.sizeToFit()
-           // containerView.invalidateIntrinsicContentSize()
+            
+            containerView.backgroundColor = .white
+
             return containerView
         }
         set{
@@ -131,10 +132,6 @@ class ChatController:UICollectionViewController,UICollectionViewDelegateFlowLayo
     
     private func configUI(){
         
- 
-     //   self.collectionView.contentOffset.y = 800
-//        let indexPath = IndexPath(item: self.messages.count - 1, section: 0)
-//        self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: false)
         
         let contentHeight = self.collectionView.contentSize.height
         let heightAfterInserts = self.collectionView.frame.size.height - (self.collectionView.contentInset.top + self.collectionView.contentInset.bottom)
@@ -224,6 +221,7 @@ class ChatController:UICollectionViewController,UICollectionViewDelegateFlowLayo
             let message = Message(dictionary: dictionary)
             self.messages.append(message)
             self.collectionView.reloadData()
+            self.configUI()
            
             
         }
@@ -248,6 +246,7 @@ extension ChatController{
         var height :CGFloat = 80
         let message = messages[indexPath.row]
         height = estimateFrameForText(message.messageText).height + 20
+       
         
         return CGSize(width: view.frame.width, height: height)
     }
@@ -279,12 +278,6 @@ extension ChatController: UITextFieldDelegate{
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
         UIView.animate(withDuration: 2) {
-//            let indexPath = IndexPath(item: self.messages.count - 1, section: 0)
-//            self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: false)
-            
-//            let collectionBounds = self.collectionView.bounds
-//            let contentOffset = CGFloat(floor(self.collectionView.contentOffset.y + collectionBounds.size.height))
-//            self.moveToFrame(contentOffset: contentOffset)
         }
 
     }
