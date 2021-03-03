@@ -89,8 +89,8 @@ class ChatCell: UICollectionViewCell{
         
         photoImageView.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 8, paddingBottom: -4, paddingRight: 0, width: 32, height: 32)
         photoImageView.layer.cornerRadius = 32 / 2
-        photoImageView.layer.masksToBounds = true
-        bubbleRightAnchor = bubbleView.rightAnchor.constraint(equalTo: rightAnchor,constant: -8)
+      //  photoImageView.layer.masksToBounds = true
+        bubbleRightAnchor = bubbleView.rightAnchor.constraint(equalTo: rightAnchor, constant: -8)
         bubbleRightAnchor?.isActive = true
         bubblLeftAnchor = bubbleView.leftAnchor.constraint(equalTo: photoImageView.rightAnchor,constant: 8)
         bubblLeftAnchor?.isActive = false
