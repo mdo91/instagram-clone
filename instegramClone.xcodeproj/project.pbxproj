@@ -20,12 +20,18 @@
 		54510A1025D3CE8D00166FD0 /* UserPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54510A0F25D3CE8D00166FD0 /* UserPostCell.swift */; };
 		54510A2225D4458F00166FD0 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54510A2125D4458F00166FD0 /* CustomImageView.swift */; };
 		54510A3525D579FE00166FD0 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54510A3425D579FE00166FD0 /* FeedCell.swift */; };
-		54510A3825DA375000166FD0 /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54510A3725DA374F00166FD0 /* Like.swift */; };
 		545367E325AAC09D00A65BAD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545367E225AAC09D00A65BAD /* AppDelegate.swift */; };
 		545367E525AAC09D00A65BAD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545367E425AAC09D00A65BAD /* SceneDelegate.swift */; };
 		545367EA25AAC09D00A65BAD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 545367E825AAC09D00A65BAD /* Main.storyboard */; };
 		545367EF25AAC09F00A65BAD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 545367ED25AAC09F00A65BAD /* LaunchScreen.storyboard */; };
 		545367FC25AAC16500A65BAD /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545367FB25AAC16500A65BAD /* LoginVC.swift */; };
+		54587C5425E8E2D0004B59B7 /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54587C5325E8E2CE004B59B7 /* MessagesController.swift */; };
+		54587C5925E8E631004B59B7 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54587C5825E8E631004B59B7 /* MessageCell.swift */; };
+		546655DE25EA50830057A9FE /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546655DD25EA50830057A9FE /* NewMessageController.swift */; };
+		546655E125EA51260057A9FE /* NewMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546655E025EA51260057A9FE /* NewMessageCell.swift */; };
+		546655E525EA8ABF0057A9FE /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546655E425EA8ABF0057A9FE /* Message.swift */; };
+		546655E825ED31020057A9FE /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546655E725ED31020057A9FE /* ChatController.swift */; };
+		546655EB25ED34580057A9FE /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546655EA25ED34580057A9FE /* ChatCell.swift */; };
 		546A5EE225B32CDC001349CF /* FollowLikeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546A5EE125B32CDC001349CF /* FollowLikeCell.swift */; };
 		546A5EE525B32CF9001349CF /* FollowLikeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546A5EE425B32CF9001349CF /* FollowLikeController.swift */; };
 		5471302325CC150100E47A89 /* SelectImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5471302225CC150100E47A89 /* SelectImageViewController.swift */; };
@@ -56,7 +62,6 @@
 		54510A0F25D3CE8D00166FD0 /* UserPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPostCell.swift; sourceTree = "<group>"; };
 		54510A2125D4458F00166FD0 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		54510A3425D579FE00166FD0 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
-		54510A3725DA374F00166FD0 /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
 		545367DF25AAC09D00A65BAD /* instegramClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = instegramClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		545367E225AAC09D00A65BAD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		545367E425AAC09D00A65BAD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +69,13 @@
 		545367EE25AAC09F00A65BAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		545367F025AAC09F00A65BAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		545367FB25AAC16500A65BAD /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		54587C5325E8E2CE004B59B7 /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
+		54587C5825E8E631004B59B7 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		546655DD25EA50830057A9FE /* NewMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
+		546655E025EA51260057A9FE /* NewMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageCell.swift; sourceTree = "<group>"; };
+		546655E425EA8ABF0057A9FE /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		546655E725ED31020057A9FE /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
+		546655EA25ED34580057A9FE /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		546A5EE125B32CDC001349CF /* FollowLikeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowLikeCell.swift; sourceTree = "<group>"; };
 		546A5EE425B32CF9001349CF /* FollowLikeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowLikeController.swift; sourceTree = "<group>"; };
 		5471302225CC150100E47A89 /* SelectImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageViewController.swift; sourceTree = "<group>"; };
@@ -199,6 +211,7 @@
 		545367F925AAC0EC00A65BAD /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				54587C5725E8E600004B59B7 /* MessageCell */,
 				54069AF925AE15CD008A57C6 /* UserProfileHeader.swift */,
 				546A5EE125B32CDC001349CF /* FollowLikeCell.swift */,
 				5471302525CC171200E47A89 /* SelectPhotoCell.swift */,
@@ -213,6 +226,7 @@
 		545367FA25AAC0F100A65BAD /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				54587C5225E8E28C004B59B7 /* Messages */,
 				546A5EE025B32C99001349CF /* Main */,
 				54069AF825AE14DF008A57C6 /* UserProfile */,
 				54069AF725AE14C3008A57C6 /* Notfications */,
@@ -231,6 +245,26 @@
 				545367E425AAC09D00A65BAD /* SceneDelegate.swift */,
 			);
 			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		54587C5225E8E28C004B59B7 /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				54587C5325E8E2CE004B59B7 /* MessagesController.swift */,
+				546655DD25EA50830057A9FE /* NewMessageController.swift */,
+				546655E725ED31020057A9FE /* ChatController.swift */,
+			);
+			path = Messages;
+			sourceTree = "<group>";
+		};
+		54587C5725E8E600004B59B7 /* MessageCell */ = {
+			isa = PBXGroup;
+			children = (
+				54587C5825E8E631004B59B7 /* MessageCell.swift */,
+				546655E025EA51260057A9FE /* NewMessageCell.swift */,
+				546655EA25ED34580057A9FE /* ChatCell.swift */,
+			);
+			path = MessageCell;
 			sourceTree = "<group>";
 		};
 		546A5EE025B32C99001349CF /* Main */ = {
@@ -257,7 +291,7 @@
 			children = (
 				54BC421D25AEF95C0011CF7A /* User.swift */,
 				547E4B4F25D25E4800F725B3 /* Post.swift */,
-				54510A3725DA374F00166FD0 /* Like.swift */,
+				546655E425EA8ABF0057A9FE /* Message.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -395,10 +429,12 @@
 			files = (
 				549779C225B1566F00B26583 /* Protocols.swift in Sources */,
 				54510A2225D4458F00166FD0 /* CustomImageView.swift in Sources */,
+				546655EB25ED34580057A9FE /* ChatCell.swift in Sources */,
 				547E4B5025D25E4800F725B3 /* Post.swift in Sources */,
+				54587C5425E8E2D0004B59B7 /* MessagesController.swift in Sources */,
 				5471302625CC171200E47A89 /* SelectPhotoCell.swift in Sources */,
-				54510A3825DA375000166FD0 /* Like.swift in Sources */,
 				54BC424C25B050070011CF7A /* SearchUserCell.swift in Sources */,
+				546655E125EA51260057A9FE /* NewMessageCell.swift in Sources */,
 				54BC421E25AEF95C0011CF7A /* User.swift in Sources */,
 				54069AED25AD68C6008A57C6 /* NotificationViewController.swift in Sources */,
 				545367E325AAC09D00A65BAD /* AppDelegate.swift in Sources */,
@@ -410,13 +446,17 @@
 				545367FC25AAC16500A65BAD /* LoginVC.swift in Sources */,
 				54069AE125AD6657008A57C6 /* MainTabBarViewController.swift in Sources */,
 				54510A1025D3CE8D00166FD0 /* UserPostCell.swift in Sources */,
+				54587C5925E8E631004B59B7 /* MessageCell.swift in Sources */,
+				546655E825ED31020057A9FE /* ChatController.swift in Sources */,
 				54069AE425AD684D008A57C6 /* FeedCollectionViewController.swift in Sources */,
+				546655E525EA8ABF0057A9FE /* Message.swift in Sources */,
 				54069AEA25AD68A6008A57C6 /* UploadPostViewController.swift in Sources */,
 				5471302A25CC192100E47A89 /* SelectPhotoHeader.swift in Sources */,
 				54407B8125AAFE0600F2A637 /* SignUpVC.swift in Sources */,
 				546A5EE525B32CF9001349CF /* FollowLikeController.swift in Sources */,
 				54069AF025AD68E6008A57C6 /* UserProfileViewController.swift in Sources */,
 				54510A3525D579FE00166FD0 /* FeedCell.swift in Sources */,
+				546655DE25EA50830057A9FE /* NewMessageController.swift in Sources */,
 				546A5EE225B32CDC001349CF /* FollowLikeCell.swift in Sources */,
 				54889C3225AAC8110067FD7A /* Extensions.swift in Sources */,
 				5404B76F25CAF13D003BE81F /* Constants.swift in Sources */,

@@ -8,6 +8,12 @@
 import Foundation
 import UIKit
 import FirebaseDatabase
+
+extension UIColor{
+    static func rgb(red:CGFloat,green: CGFloat, blue: CGFloat)-> UIColor{
+        return UIColor(red: red / 255, green: green / 255, blue: blue / 255, alpha: 1)
+    }
+}
 extension UIView{
     
     
@@ -44,8 +50,7 @@ extension UIView{
         if width != 0 {
             
             widthAnchor.constraint(equalToConstant: width).isActive = true
-            
-            
+         
         }
         if height != 0{
             heightAnchor.constraint(equalToConstant: height).isActive = true
@@ -57,7 +62,6 @@ extension UIView{
 extension UIImageView{
     
 
-    
     func loadImage(for url: String){
         self.image = nil
         if let cachedImage = imageCache[url]{
@@ -120,7 +124,6 @@ extension Database{
             
             
         }
-        
-        
+   
     }
 }
