@@ -79,10 +79,10 @@ class ChatController:UICollectionViewController,UICollectionViewDelegateFlowLayo
         self.collectionView.register(ChatCell.self, forCellWithReuseIdentifier: ChatCell.reuseIdentifier)
         navigationBarConfig()
         observeMessages()
-       // containerView.translatesAutoresizingMaskIntoConstraints = true
-        
-
-       // accessoryHeight?.constant = 70
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            self?.configUI()
+        }
+       
         
     }
     
@@ -124,9 +124,27 @@ class ChatController:UICollectionViewController,UICollectionViewDelegateFlowLayo
         uploadMessagesToServer()
         messageTextField.text = nil
         
+        configUI()
+
+        
     }
     
     private func configUI(){
+        
+ 
+     //   self.collectionView.contentOffset.y = 800
+//        let indexPath = IndexPath(item: self.messages.count - 1, section: 0)
+//        self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: false)
+        
+        let contentHeight = self.collectionView.contentSize.height
+        let heightAfterInserts = self.collectionView.frame.size.height - (self.collectionView.contentInset.top + self.collectionView.contentInset.bottom)
+        
+        if contentHeight > heightAfterInserts{
+            self.collectionView.setContentOffset(CGPoint(x: 0, y: self.collectionView.contentSize.height - self.collectionView.frame.size.height / 2.5), animated: true)
+        }
+        
+
+        
         
     }
     
@@ -201,20 +219,25 @@ class ChatController:UICollectionViewController,UICollectionViewDelegateFlowLayo
     }
     
     private func fetchMessage(withMessageId messageId:String ){
-        MESSAGES_REF.child(messageId).observeSingleEvent(of: .value) { (dataSnap) in
+        MESSAGES_REF.child(messageId).observeSingleEvent(of: .value) { [self] (dataSnap) in
             guard let dictionary = dataSnap.value as? Dictionary<String,AnyObject> else { return }
             let message = Message(dictionary: dictionary)
             self.messages.append(message)
             self.collectionView.reloadData()
+           
             
         }
         
     }
-
-
-  
-
     
+    func moveToFrame(contentOffset : CGFloat) {
+
+        let frame: CGRect = CGRect(x : self.collectionView.contentOffset.x ,y : contentOffset ,width : self.collectionView.frame.width,height : self.collectionView.frame.height)
+        print("moveToFrame contentOffset\(contentOffset) frame \(frame.debugDescription)")
+        
+        self.collectionView.scrollRectToVisible(frame, animated: true)
+    }
+
 }
 //MARK: - UICollectionView Delegate
 
@@ -241,8 +264,8 @@ extension ChatController{
             fatalError("could not init \(ChatCell.self)")
             
         }
-            cell.message = self.messages[indexPath.row]
-            configureMessge(cell: cell, message: self.messages[indexPath.item])
+        cell.message = self.messages[indexPath.item]
+        configureMessge(cell: cell, message: self.messages[indexPath.item])
       
         return cell
     }
@@ -254,31 +277,36 @@ extension ChatController: UITextFieldDelegate{
     //MARK: - TextField delegate
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        UIView.animate(withDuration: 2) {
+//            let indexPath = IndexPath(item: self.messages.count - 1, section: 0)
+//            self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: false)
+            
+//            let collectionBounds = self.collectionView.bounds
+//            let contentOffset = CGFloat(floor(self.collectionView.contentOffset.y + collectionBounds.size.height))
+//            self.moveToFrame(contentOffset: contentOffset)
+        }
 
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         if textField == self.messageTextField{
+            
             guard let numberOfLines = textField.text?.count  else { return false }
             guard numberOfLines / 34 != 0 else {
+                
                 return true
             }
   
-           
             let amountOfLinesToBeShown = numberOfLines
             if numOfLinesConstant != numberOfLines / 34{
 
                 numOfLinesConstant = numberOfLines / 34
                 let maxHeight = Int(messageTextField.font!.lineHeight) + amountOfLinesToBeShown
 
-                print("maxHeight \(maxHeight)")
-                
-                
                 UIView.animate(withDuration: 0.5) { [self] in
-                    
-                  //  DispatchQueue.main.async {
-                        
-                        containerView.frame = CGRect(x: 0, y: 0, width: 100, height: maxHeight)
+
+                    containerView.frame = CGRect(x: 0, y: 0, width: 100, height: maxHeight)
                     containerView.setNeedsLayout()
                     print("containerView \(containerView.frame.height)")
                     self.inputAccessoryView = containerView
@@ -286,9 +314,7 @@ extension ChatController: UITextFieldDelegate{
    
                 }
             }
-            
-            print("containerView \(containerView.frame.height)")
-  
+
             return true
             
         }else{
