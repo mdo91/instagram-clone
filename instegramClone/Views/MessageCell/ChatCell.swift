@@ -83,19 +83,24 @@ class ChatCell: UICollectionViewCell{
     //MARK: - config UI
     
     private func configUI(){
-        addSubview(bubbleView)
+        
         addSubview(photoImageView)
+        addSubview(bubbleView)
         addSubview(textView)
-        
-        photoImageView.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 8, paddingBottom: -4, paddingRight: 0, width: 32, height: 32)
+        photoImageView.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 10, paddingBottom: -8, paddingRight: 5, width: 32, height: 32)
+
+        photoImageView.layer.masksToBounds = true
         photoImageView.layer.cornerRadius = 32 / 2
-      //  photoImageView.layer.masksToBounds = true
-        bubbleRightAnchor = bubbleView.rightAnchor.constraint(equalTo: rightAnchor, constant: -8)
-        bubbleRightAnchor?.isActive = true
-        bubblLeftAnchor = bubbleView.leftAnchor.constraint(equalTo: photoImageView.rightAnchor,constant: 8)
-        bubblLeftAnchor?.isActive = false
         
-        bubbleWidthAnchor = bubbleView.widthAnchor.constraint(equalToConstant:200)
+
+        bubbleRightAnchor = bubbleView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8)
+       
+    
+//        bubbleRightAnchor?.isActive = true
+        bubblLeftAnchor = bubbleView.leftAnchor.constraint(equalTo: photoImageView.rightAnchor,constant: 8)
+       // bubblLeftAnchor?.isActive = false
+        
+        bubbleWidthAnchor = bubbleView.widthAnchor.constraint(equalToConstant: 200)
         bubbleWidthAnchor?.isActive = true
         
         bubbleView.topAnchor.constraint(equalTo: topAnchor).isActive = true
@@ -105,6 +110,7 @@ class ChatCell: UICollectionViewCell{
         textView.leftAnchor.constraint(equalTo: bubbleView.leftAnchor, constant: 8).isActive = true
         textView.rightAnchor.constraint(equalTo: bubbleView.rightAnchor).isActive = true
         textView.topAnchor.constraint(equalTo: topAnchor,constant: 8).isActive = true
+        
     }
     
 }
