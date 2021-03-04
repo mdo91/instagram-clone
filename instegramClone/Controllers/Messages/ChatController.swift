@@ -64,12 +64,16 @@ class ChatController:UICollectionViewController,UICollectionViewDelegateFlowLayo
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView.backgroundColor = .white
+        self.collectionView.keyboardDismissMode  = .interactive
         self.collectionView.register(ChatCell.self, forCellWithReuseIdentifier: ChatCell.reuseIdentifier)
         navigationBarConfig()
+        configKeyboardObserver()
         observeMessages()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            self?.configUI()
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+//         //   self?.configUI()
+//        }
+        
+        
        
         
     }
@@ -112,10 +116,37 @@ class ChatController:UICollectionViewController,UICollectionViewDelegateFlowLayo
         uploadMessagesToServer()
         messageTextField.text = nil
         
-        configUI()
+       // configUI()
 
         
     }
+    
+    //MARK: - Scroll to bottom 2
+    
+    private func scrollToBottom(){
+        
+        if messages.count > 0{
+            let indexPath = IndexPath(item: messages.count - 1, section: 0)
+            collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+        }
+        
+    }
+    
+    //MARK: - keyboard handler
+    
+     private func configKeyboardObserver(){
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
+    }
+    
+    @objc private func handleKeyboardDidShow(){
+        
+        self.scrollToBottom()
+        
+    }
+    
+    
+    
+    //MARK: - scroll to bottom 1
     
     private func configUI(){
         
@@ -245,8 +276,14 @@ class ChatController:UICollectionViewController,UICollectionViewDelegateFlowLayo
             guard let dictionary = dataSnap.value as? Dictionary<String,AnyObject> else { return }
             let message = Message(dictionary: dictionary)
             self.messages.append(message)
-            self.collectionView.reloadData()
-            self.configUI()
+            
+            DispatchQueue.main.async(execute: {
+                self.collectionView.reloadData()
+                let indexPath = IndexPath(item: self.messages.count - 1, section: 0)
+                self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
+            })
+            
+           // self.configUI()
            
             
         }
