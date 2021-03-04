@@ -8,7 +8,9 @@
 import Foundation
 import UIKit
 import FirebaseAuth
-class ChatController:UICollectionViewController,UICollectionViewDelegateFlowLayout{
+class ChatController:UICollectionViewController,UICollectionViewDelegateFlowLayout, MessageInputAccesoryViewDelegate{
+
+    
     
     //MARK: - properties
     
@@ -19,28 +21,13 @@ class ChatController:UICollectionViewController,UICollectionViewDelegateFlowLayo
     
     var height = 70
     
-    lazy var containerView : UIView = {
+    lazy var containerView : MessageInputAccessoryView = {
      //   self.accessoryHeight.
-        let container = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 65))
+        let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 60)
+        let containerView = MessageInputAccessoryView(frame: frame)
+        containerView.delegate = self
 
-        container.addSubview(messageTextField)
-        messageTextField.anchor(top: container.topAnchor, left: container.leftAnchor, bottom: container.bottomAnchor, right: container.rightAnchor, paddingTop: 0, paddingLeft: 12, paddingBottom: 0, paddingRight: 4, width: 0, height: 0)
-
-        let sendButton = UIButton(type: .system)
-        sendButton.setTitle("Send", for: .normal)
-        sendButton.addTarget(self, action: #selector(sendButtonActionHandler), for: .touchUpInside)
-
-        container.addSubview(sendButton)
-        sendButton.anchor(top: nil, left: nil, bottom: nil, right: container.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 16, width: 0, height: 0)
-        sendButton.centerYAnchor.constraint(equalTo: container.centerYAnchor).isActive = true
-        
-        let separatorView = UIView()
-        separatorView.backgroundColor = .lightGray
-        separatorView.backgroundColor = .lightGray
-        container.addSubview(separatorView)
-        separatorView.anchor(top: container.topAnchor, left: container.leftAnchor, bottom: nil, right: container.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0.5)
-
-        return container
+        return containerView
     }()
     
     lazy var messageTextField:UITextField = {
@@ -77,12 +64,16 @@ class ChatController:UICollectionViewController,UICollectionViewDelegateFlowLayo
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView.backgroundColor = .white
+        self.collectionView.keyboardDismissMode  = .interactive
         self.collectionView.register(ChatCell.self, forCellWithReuseIdentifier: ChatCell.reuseIdentifier)
         navigationBarConfig()
+        configKeyboardObserver()
         observeMessages()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            self?.configUI()
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+//         //   self?.configUI()
+//        }
+        
+        
        
         
     }
@@ -125,10 +116,37 @@ class ChatController:UICollectionViewController,UICollectionViewDelegateFlowLayo
         uploadMessagesToServer()
         messageTextField.text = nil
         
-        configUI()
+       // configUI()
 
         
     }
+    
+    //MARK: - Scroll to bottom 2
+    
+    private func scrollToBottom(){
+        
+        if messages.count > 0{
+            let indexPath = IndexPath(item: messages.count - 1, section: 0)
+            collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+        }
+        
+    }
+    
+    //MARK: - keyboard handler
+    
+     private func configKeyboardObserver(){
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardDidShow), name: UIResponder.keyboardDidShowNotification, object: nil)
+    }
+    
+    @objc private func handleKeyboardDidShow(){
+        
+        self.scrollToBottom()
+        
+    }
+    
+    
+    
+    //MARK: - scroll to bottom 1
     
     private func configUI(){
         
@@ -139,10 +157,7 @@ class ChatController:UICollectionViewController,UICollectionViewDelegateFlowLayo
         if contentHeight > heightAfterInserts{
             self.collectionView.setContentOffset(CGPoint(x: 0, y: self.collectionView.contentSize.height - self.collectionView.frame.size.height / 2.5), animated: true)
         }
-        
-
-        
-        
+    
     }
     
     private func estimateFrameForText(_ text:String) -> CGRect{
@@ -154,16 +169,19 @@ class ChatController:UICollectionViewController,UICollectionViewDelegateFlowLayo
     private func configureMessge(cell:ChatCell, message:Message){
         
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
-        cell.bubbleWidthAnchor?.constant = estimateFrameForText(message.messageText).width + 32
+        cell.bubbleWidthAnchor?.constant = CGFloat(Int(estimateFrameForText(message.messageText).width + 32))
         cell.frame.size.height = estimateFrameForText(message.messageText).height + 20
         
+        
         if message.fromId == currentUid{
+           
             cell.bubbleRightAnchor?.isActive = true
             cell.bubblLeftAnchor?.isActive = false
             cell.bubbleView.backgroundColor = UIColor.rgb(red: 0, green: 137, blue: 249)
             cell.textView.textColor = .white
             cell.photoImageView.isHidden = true
         }else{
+ 
             cell.bubbleRightAnchor?.isActive = false
             cell.bubblLeftAnchor?.isActive = true
             cell.bubbleView.backgroundColor = UIColor.rgb(red: 240, green: 240, blue: 240)
@@ -175,8 +193,48 @@ class ChatController:UICollectionViewController,UICollectionViewDelegateFlowLayo
         
     }
     
+    //MARK: - accessory protcols
+    
+
+    
+    func handleUploadMessage(message: String) {
+        let properties = ["messageText": message] as [String: AnyObject]
+        uploadMessageToServer(withProperties: properties)
+        
+        self.containerView.clearMessageTextView()
+    }
+    
+    func handleSelectImage() {
+        
+    }
+    
     
     //MARK: - API
+    
+    private func uploadMessageToServer(withProperties properties: [String: AnyObject]) {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        guard let user = self.user else { return }
+        let creationDate = Int(NSDate().timeIntervalSince1970)
+
+        // UPDATE: - Safely unwrapped uid to work with Firebase 5
+        guard let uid = user.uid else { return }
+
+        var values: [String: AnyObject] = ["toId": user.uid as AnyObject, "fromId": currentUid as AnyObject, "creationDate": creationDate as AnyObject, "read": false as AnyObject]
+
+        properties.forEach({values[$0] = $1})
+        
+        let messageRef = MESSAGES_REF.childByAutoId()
+        
+        // UPDATE: - Safely unwrapped messageKey to work with Firebase 5
+        guard let messageKey = messageRef.key else { return }
+        
+        messageRef.updateChildValues(values) { (err, ref) in
+            USER_MESSAGES_REF.child(currentUid).child(uid).updateChildValues([messageKey: 1])
+            USER_MESSAGES_REF.child(uid).child(currentUid).updateChildValues([messageKey: 1])
+        }
+        
+      //  uploadMessageNotification(isImageMessage: false, isVideoMessage: false, isTextMessage: true)
+    }
     
     private func uploadMessagesToServer(){
         guard let messageText = messageTextField.text else { return }
@@ -194,9 +252,7 @@ class ChatController:UICollectionViewController,UICollectionViewDelegateFlowLayo
         guard let messageKey = messageRef.key else {
             return
         }
-        print("uploadMessagesToServer.currentUid \(currentUid)")
-        print("uploadMessagesToServer.uid \(uid)")
-        print("uploadMessagesToServer.messageRef \([messageKey:1])")
+
         
         
         
@@ -220,8 +276,14 @@ class ChatController:UICollectionViewController,UICollectionViewDelegateFlowLayo
             guard let dictionary = dataSnap.value as? Dictionary<String,AnyObject> else { return }
             let message = Message(dictionary: dictionary)
             self.messages.append(message)
-            self.collectionView.reloadData()
-            self.configUI()
+            
+            DispatchQueue.main.async(execute: {
+                self.collectionView.reloadData()
+                let indexPath = IndexPath(item: self.messages.count - 1, section: 0)
+                self.collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
+            })
+            
+           // self.configUI()
            
             
         }
@@ -245,7 +307,9 @@ extension ChatController{
         
         var height :CGFloat = 80
         let message = messages[indexPath.row]
+        print("collectionView.messageText \(message.messageText)")
         height = estimateFrameForText(message.messageText).height + 20
+       
        
         
         return CGSize(width: view.frame.width, height: height)
@@ -268,6 +332,8 @@ extension ChatController{
       
         return cell
     }
+    
+
 
     
 }

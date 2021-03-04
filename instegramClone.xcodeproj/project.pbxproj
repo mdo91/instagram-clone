@@ -32,6 +32,7 @@
 		546655E525EA8ABF0057A9FE /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546655E425EA8ABF0057A9FE /* Message.swift */; };
 		546655E825ED31020057A9FE /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546655E725ED31020057A9FE /* ChatController.swift */; };
 		546655EB25ED34580057A9FE /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546655EA25ED34580057A9FE /* ChatCell.swift */; };
+		546655FB25EFF4240057A9FE /* MessageInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546655FA25EFF4210057A9FE /* MessageInputAccessoryView.swift */; };
 		546A5EE225B32CDC001349CF /* FollowLikeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546A5EE125B32CDC001349CF /* FollowLikeCell.swift */; };
 		546A5EE525B32CF9001349CF /* FollowLikeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546A5EE425B32CF9001349CF /* FollowLikeController.swift */; };
 		5471302325CC150100E47A89 /* SelectImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5471302225CC150100E47A89 /* SelectImageViewController.swift */; };
@@ -76,6 +77,7 @@
 		546655E425EA8ABF0057A9FE /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		546655E725ED31020057A9FE /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
 		546655EA25ED34580057A9FE /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
+		546655FA25EFF4210057A9FE /* MessageInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageInputAccessoryView.swift; sourceTree = "<group>"; };
 		546A5EE125B32CDC001349CF /* FollowLikeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowLikeCell.swift; sourceTree = "<group>"; };
 		546A5EE425B32CF9001349CF /* FollowLikeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowLikeController.swift; sourceTree = "<group>"; };
 		5471302225CC150100E47A89 /* SelectImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageViewController.swift; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 				54587C5825E8E631004B59B7 /* MessageCell.swift */,
 				546655E025EA51260057A9FE /* NewMessageCell.swift */,
 				546655EA25ED34580057A9FE /* ChatCell.swift */,
+				546655FA25EFF4210057A9FE /* MessageInputAccessoryView.swift */,
 			);
 			path = MessageCell;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				54510A2225D4458F00166FD0 /* CustomImageView.swift in Sources */,
 				546655EB25ED34580057A9FE /* ChatCell.swift in Sources */,
 				547E4B5025D25E4800F725B3 /* Post.swift in Sources */,
+				546655FB25EFF4240057A9FE /* MessageInputAccessoryView.swift in Sources */,
 				54587C5425E8E2D0004B59B7 /* MessagesController.swift in Sources */,
 				5471302625CC171200E47A89 /* SelectPhotoCell.swift in Sources */,
 				54BC424C25B050070011CF7A /* SearchUserCell.swift in Sources */,

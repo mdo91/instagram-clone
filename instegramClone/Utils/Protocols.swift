@@ -35,3 +35,7 @@ protocol FollowCellDelegate:class {
     func handleFollowTappedDelegate(for cell: FollowLikeCell)
 }
 
+protocol MessageInputAccesoryViewDelegate {
+    func handleUploadMessage(message: String)
+    func handleSelectImage()
+}
